@@ -53,7 +53,7 @@
 
 @font-face {
     font-family: 'grp09';
-    src: url('fonts/GRPMantra.woff2') format('woff2');
+    src: url('fonts/GRPPocky.woff2') format('woff2');
     font-weight: 400;
 }
 
@@ -72,10 +72,9 @@
 }
 
 @font-face {
-    font-family: 'grp09-3D'; /* ชื่อที่เราจะเรียกใช้ */
+    font-family: 'grp09-3d'; /* ชื่อที่เราจะเรียกใช้ */
     src: url('fonts/GRPHighSchool.woff2') format('woff2');
     font-weight: 400;
-    font-style: 400;
 }
 
 /* ลักษณะฟอนต์แบบโปร่ง (Outline) */
