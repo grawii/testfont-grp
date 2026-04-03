@@ -1,0 +1,104 @@
+/* สำหรับตัวปกติ */
+@font-face {
+    font-family: 'DekDec'; /* ชื่อที่เราจะเรียกใช้ */
+    src: url('fonts/DekDec-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
+@font-face {
+    font-family: 'Pocky'; 
+    src: url('fonts/GRP Pocky.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* นำมาใช้งานกับตัวอักษรในเว็บ */
+#displayText {
+    font-family: 'DekDec', sans-serif;
+}
+
+:root {
+    --primary-bg: #fffcfd; /* สีขาวอมชมพูอ่อนมากๆ */
+    --box-bg: #ffffff;
+    --pink-accent: #ffccd5; /* สีชมพูพาสเทลละมุน */
+    --peach-light: #fff0f3; /* สีพีชอ่อน */
+    --text-dark: #8c5a65; /* สีนํ้าตาลอมแดง */
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-dark);
+    /* ลาย Dot Polka Dot จางๆ ทั่วเว็บ */
+    background-image: radial-gradient(rgba(255, 204, 213, 0.5) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* หน้าต่างแบบ Soft Window (โค้งมนและมีเงาแบบฟุ้ง) */
+.soft-window {
+    background: var(--box-bg);
+    border: 2px solid #ffdce3; /* เส้นขอบบางๆ สีชมพูอ่อน */
+    border-radius: 1.5rem; /* โค้งมนนุ่มนวล */
+    box-shadow: 0 10px 25px rgba(255, 204, 213, 0.25); /* เงาแบบ Soft Glow */
+    overflow: hidden;
+}
+
+/* แถบหัวหน้าต่างแบบไล่ระดับสีจางๆ */
+.window-header {
+    background: linear-gradient(to right, #fff0f3, #ffffff);
+    padding: 0.75rem 1.5rem;
+    border-bottom: 2px solid #ffdce3;
+    display: flex;
+    align-items: center;
+}
+
+/* ปุ่มจุดสี 3 จุดสไตล์ Soft Window */
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-1 { background: #ffb5c6; }
+.dot-2 { background: #ffcdb2; }
+.dot-3 { background: #ffffff; border: 1.5px solid #ffdce3; }
+
+/* ปุ่มเลือกน้ำหนักแบบเม็ดแคปซูลมนๆ (Pill Buttons) */
+.pill-btn {
+    background: #fff0f3;
+    color: var(--text-dark);
+    padding: 6px 18px;
+    border-radius: 999px; /* โค้งมนแบบแคปซูล */
+    font-size: 12px;
+    font-weight: bold;
+    border: 1.5px solid transparent;
+    transition: 0.2s;
+}
+
+.pill-btn.active {
+    background: var(--pink-accent);
+    color: white;
+    border-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(255, 181, 198, 0.4);
+}
+
+/* ปุ่มสั่งซื้อแบบมีออร่า (Glowing Button) */
+.contact-btn {
+    background: var(--pink-accent);
+    color: white !important;
+    border-radius: 999px;
+    padding: 1rem 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(255, 181, 198, 0.4);
+    transition: 0.3s;
+}
+.contact-btn:hover {
+    background: #ffb5c6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 181, 198, 0.5);
+}
+
+/* เอฟเฟกต์ฟอนต์โปร่ง (ขอบบางลง) */
+.font-outline {
+    color: transparent !important;
+    -webkit-text-stroke: 1px var(--text-dark);
+}
