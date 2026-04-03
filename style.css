@@ -53,27 +53,27 @@
 
 @font-face {
     font-family: 'grp09';
-    src: url('fonts/GRPPocky.woff2') format('woff2');
+    src: url('fonts/GRP Pocky.woff2') format('woff2');
     font-weight: 400;
 }
 
 /* ตัวหนา (Bold) */
 @font-face {
     font-family: 'grp09';
-    src: url('fonts/GRPMantrabold.woff2') format('woff2');
+    src: url('fonts/GRP Pocky Bold.woff2') format('woff2');
     font-weight: 700;
 }
 
 /* ตัวบาง (Thin) - ใช้เลข 100 เพื่อความต่างที่ชัดเจน */
 @font-face {
     font-family: 'grp09';
-    src: url('fonts/GRPMantrathin.woff2') format('woff2');
+    src: url('fonts/GRP Pocky Thin.woff2') format('woff2');
     font-weight: 100;
 }
 
 @font-face {
     font-family: 'grp09-3d'; /* ชื่อที่เราจะเรียกใช้ */
-    src: url('fonts/GRPHighSchool.woff2') format('woff2');
+    src: url('fonts/GRP Pocky 3D.woff2') format('woff2');
     font-weight: 400;
 }
 
