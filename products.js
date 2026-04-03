@@ -22,7 +22,7 @@ const fontList = [
     },
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
-        family: "grp04", 
+        family: "grp09", 
         price: "89.-",
         features: ["weight", "style"], // มีทั้งสองอย่าง
         weights: ["100", "400", "700"],
