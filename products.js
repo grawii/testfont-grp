@@ -4,7 +4,7 @@ const fontList = [
         family: "grp01", 
         price: "89.-",
         features: ["weight","style"], // มีแค่ปรับน้ำหนัก
-        weights: ["lighter", "normal", "bold"] 
+        weights: ["300", "normal", "bold"] 
     },
     { 
         name: "ขีดเขียน (KhitKhian)", 
