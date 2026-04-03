@@ -128,15 +128,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
+            
+            let defaultBtn = null; // ตัวแปรไว้เก็บปุ่ม "ปกติ"
+
             font.weights.forEach(w => {
                 let label = w;
                 if(w === "300") label = "บาง";
                 if(w === "normal") label = "ปกติ";
                 if(w === "bold") label = "หนา";
+                
                 const btn = createPill(label, () => displayText.style.fontWeight = w);
                 weightButtons.appendChild(btn);
+
+                // ถ้าเจอน้ำหนัก "normal" ให้เก็บปุ่มนี้ไว้เป็นค่าเริ่มต้น
+                if (w === "normal") {
+                    defaultBtn = btn;
+                }
             });
-            weightButtons.firstChild.click();
+
+            // ถ้ามีปุ่ม "ปกติ" ให้คลิกปุ่มนั้น แต่ถ้าไม่มีจริงๆ ให้คลิกปุ่มแรกสุดเหมือนเดิม
+            if (defaultBtn) {
+                defaultBtn.click();
+            } else if (weightButtons.firstChild) {
+                weightButtons.firstChild.click();
+            }
         } else {
             weightControl.classList.add('hidden');
             displayText.style.fontWeight = 'normal';
