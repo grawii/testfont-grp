@@ -1,3 +1,6 @@
+// 1. เพิ่มตัวแปรสำหรับเก็บสินค้าในตะกร้าไว้บนสุด
+let cart = [];
+
 document.addEventListener('DOMContentLoaded', () => {
     const fontSelect = document.getElementById('fontSelect');
     const weightControl = document.getElementById('weightControl');
@@ -7,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
 
-    // 1. สร้างตัวเลือกฟอนต์
+    // สร้างตัวเลือกฟอนต์
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
@@ -15,33 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
         fontSelect.appendChild(opt);
     });
 
-    // 2. ฟังก์ชันอัปเดต UI ตามฟอนต์ที่เลือก
     function updateControls() {
         const font = fontList[fontSelect.value];
         displayText.style.fontFamily = font.family;
         priceLabel.textContent = font.price;
 
-        // จัดการส่วน Weight
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
-// หาบรรทัดที่สร้างปุ่ม Weight ใน script.js แล้วปรับตามนี้ครับ
-font.weights.forEach(w => {
-    let label = w;
-    if(w === "300") label = "บาง";
-    if(w === "normal") label = "ปกติ";
-    if(w === "bold") label = "หนา";
-    
-    const btn = createPill(label, () => displayText.style.fontWeight = w);
-    weightButtons.appendChild(btn);
-});
-            weightButtons.firstChild.click(); // คลิกอันแรกเป็นค่าเริ่มต้น
+            font.weights.forEach(w => {
+                let label = w;
+                if(w === "300") label = "บาง";
+                if(w === "normal") label = "ปกติ";
+                if(w === "bold") label = "หนา";
+                
+                const btn = createPill(label, () => displayText.style.fontWeight = w);
+                weightButtons.appendChild(btn);
+            });
+            weightButtons.firstChild.click();
         } else {
             weightControl.classList.add('hidden');
             displayText.style.fontWeight = 'normal';
         }
 
-        // จัดการส่วน Style (ปกติ/โปร่ง)
         if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
@@ -56,6 +55,15 @@ font.weights.forEach(w => {
             styleControl.classList.add('hidden');
             displayText.classList.remove('font-outline');
         }
+
+        // --- ส่วนสำคัญ: ผูกคำสั่ง Add to Cart เข้ากับปุ่มสั่งซื้อข้างล่าง ---
+        const buyBtn = document.querySelector('.contact-btn');
+        if (buyBtn) {
+            buyBtn.onclick = (e) => {
+                e.preventDefault();
+                addToCart();
+            };
+        }
     }
 
     function createPill(text, callback) {
@@ -63,7 +71,6 @@ font.weights.forEach(w => {
         btn.className = 'pill-btn';
         btn.textContent = text;
         btn.onclick = () => {
-            // ลบ class active จากกลุ่มเดียวกัน
             btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             callback();
@@ -71,7 +78,81 @@ font.weights.forEach(w => {
         return btn;
     }
 
-    // Event Listeners
+    // --- ระบบจัดการตะกร้าสินค้า ---
+
+    window.updateCartUI = function() {
+        const cartCount = document.getElementById('cartCount');
+        const cartItems = document.getElementById('cartItems');
+        const totalPrice = document.getElementById('totalPrice');
+        const receiptList = document.getElementById('receiptList');
+        
+        cartCount.textContent = cart.length;
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            const priceNum = parseInt(item.price.replace(/[^\d]/g, ''));
+            total += priceNum;
+            cartItems.innerHTML += `
+                <div class="flex justify-between items-center text-[#8c5a65] py-2 border-b border-pink-50">
+                    <div class="flex items-center gap-2 text-xs font-bold">
+                        <button onclick="removeFromCart(${index})" class="w-5 h-5 flex items-center justify-center rounded-full bg-pink-100 text-[#ff9eaa]">✕</button>
+                        <span>${item.name}</span>
+                    </div>
+                    <span class="font-bold text-xs">${item.price}</span>
+                </div>
+            `;
+        });
+
+        if(cart.length === 0) cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
+        totalPrice.textContent = total + ".-";
+        
+        receiptList.innerHTML = cart.map(item => `
+            <div class="flex justify-between text-sm py-1"><span>${item.name}</span> <span>${item.price}</span></div>
+        `).join('') + `<div class="flex justify-between font-black mt-4 text-lg border-t-2 border-pink-100 pt-2 text-[#8c5a65]"><span>รวมยอดทั้งหมด</span> <span>${total}.-</span></div>`;
+    };
+
+    window.addToCart = function() {
+        const font = fontList[fontSelect.value];
+        cart.push({ name: font.name, price: font.price });
+        updateCartUI();
+        const icon = document.getElementById('cartIcon');
+        icon.classList.add('scale-125');
+        setTimeout(() => icon.classList.remove('scale-125'), 200);
+    };
+
+    window.removeFromCart = function(index) {
+        cart.splice(index, 1);
+        updateCartUI();
+    };
+
+    window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
+    window.goToCheckout = () => {
+        if(cart.length === 0) return alert("เลือกฟอนต์ใส่ตะกร้าก่อนน้าา ♡");
+        document.getElementById('checkoutPage').classList.remove('hidden');
+    };
+    window.closeCheckout = () => document.getElementById('checkoutPage').classList.add('hidden');
+
+    window.copyAndLine = function() {
+        const email = document.getElementById('userEmail').value;
+        if(!email) return alert("องุ่นขออีเมลสำหรับส่งไฟล์หน่อยน้าา");
+
+        let text = "🛒 รายการสั่งซื้อ GRP House\n--------------------------\n";
+        cart.forEach((item, i) => text += `${i+1}. ${item.name} (${item.price})\n`);
+        text += "--------------------------\n";
+        text += `ยอดรวมทั้งหมด: ${document.getElementById('totalPrice').textContent}\n`;
+        text += `อีเมลลูกค้า: ${email}\n\n`;
+        text += "คัดลอกข้อความนี้แล้วส่งให้แอดมินได้เลยค่ะ ♡";
+
+        navigator.clipboard.writeText(text).then(() => {
+            alert("คัดลอกใบเสร็จแล้วค่ะ! กำลังพาไปที่ Line นะคะ");
+            window.location.href = "https://line.me/ti/p/@309ranuu"; // แก้ตรงนี้เป็นลิ้งค์ไลน์องุ่นนะ
+        });
+    };
+
+    document.getElementById('cartIcon').onclick = () => document.getElementById('cartModal').classList.remove('hidden');
+
+    // Event Listeners เดิม
     fontSelect.onchange = updateControls;
     document.getElementById('fontSize').oninput = (e) => {
         const val = e.target.value + 'px';
@@ -82,5 +163,5 @@ font.weights.forEach(w => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความ";
     };
 
-    updateControls(); // รันครั้งแรก
+    updateControls(); 
 });
