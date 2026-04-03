@@ -19,6 +19,26 @@
     font-weight: 300;
 }
 
+@font-face {
+    font-family: 'grp02'; /* ชื่อที่เราจะเรียกใช้ */
+    src: url('fonts/GRPHighSchool.woff2') format('woff2');
+    font-weight: normal;
+}
+
+/* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
+@font-face {
+    font-family: 'grp02'; 
+    src: url('fonts/GRPHighSchoolbold.woff2') format('woff2');
+    font-weight: bold;
+}
+
+/* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
+@font-face {
+    font-family: 'grp02'; 
+    src: url('fonts/GRPHighSchoolthin.woff2') format('woff2');
+    font-weight: 300;
+}
+
 /* นำมาใช้งานกับตัวอักษรในเว็บ */
 #displayText {
     font-family: 'grp01', sans-serif;
