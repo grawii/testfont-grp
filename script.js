@@ -143,20 +143,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // จัดการลักษณะ (Style)
-        if (font.features.includes('style')) {
-            styleControl.classList.remove('hidden');
-            styleButtons.innerHTML = '';
-            font.styles.forEach(s => {
-                const btn = createPill(s === 'outline' ? 'โปร่ง' : 'ปกติ', () => {
-                    if(s === 'outline') {
-                        displayText.classList.add('font-outline');
-                    } else {
-                        displayText.classList.remove('font-outline');
-                    }
-                });
-                styleButtons.appendChild(btn);
-            });
-            styleButtons.firstChild.click();
+        // มองหาท่อนจัดการ Style ใน script.js แล้วปรับตามนี้ครับ
+if (font.features.includes('style')) {
+    styleControl.classList.remove('hidden');
+    styleButtons.innerHTML = '';
+    font.styles.forEach(s => {
+        // เปลี่ยนชื่อปุ่มให้ดูง่าย
+        let label = "ปกติ";
+        if(s === "outline") label = "โปร่ง";
+        if(s === "3D") label = "3D";
+
+        const btn = createPill(label, () => {
+            // ล้าง Class พิเศษออกก่อนทุกครั้ง
+            displayText.classList.remove('font-outline', 'font-3d');
+            
+            if(s === 'outline') {
+                displayText.classList.add('font-outline');
+            } else if(s === '3D') {
+                displayText.classList.add('font-3d'); // ใส่ Class font-3d ที่เราเขียนใน CSS
+            }
+        });
+        styleButtons.appendChild(btn);
+    });
+    styleButtons.firstChild.click();
+}
         } else {
             styleControl.classList.add('hidden');
             displayText.classList.remove('font-outline');
