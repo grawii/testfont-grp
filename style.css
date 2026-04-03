@@ -1,20 +1,20 @@
 /* สำหรับตัวปกติ */
 @font-face {
-    font-family: 'มนตรา (GRP Mantra)'; /* ชื่อที่เราจะเรียกใช้ */
+    font-family: 'grp01'; /* ชื่อที่เราจะเรียกใช้ */
     src: url('fonts/GRPMantra.woff2') format('woff2');
     font-weight: normal;
 }
 
 /* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
 @font-face {
-    font-family: 'มนตรา (GRP Mantra)'; 
+    font-family: 'grp01'; 
     src: url('fonts/GRPMantrabold.woff2') format('woff2');
     font-weight: bold;
 }
 
 /* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
 @font-face {
-    font-family: 'มนตรา (GRP Mantra)'; 
+    font-family: 'grp01'; 
     src: url('fonts/GRPMantrathin.woff2') format('woff2');
     font-weight: lighter;
 }
