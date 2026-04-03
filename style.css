@@ -1,17 +1,22 @@
 /* สำหรับตัวปกติ */
 @font-face {
-    font-family: 'DekDec'; /* ชื่อที่เราจะเรียกใช้ */
-    src: url('fonts/DekDec-Regular.woff2') format('woff2');
+    font-family: 'มนตรา (GRP Mantra)'; /* ชื่อที่เราจะเรียกใช้ */
+    src: url('fonts/GRPMantra.woff2') format('woff2');
     font-weight: normal;
-    font-style: normal;
 }
 
 /* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
 @font-face {
-    font-family: 'Pocky'; 
-    src: url('fonts/GRP Pocky.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'มนตรา (GRP Mantra)'; 
+    src: url('fonts/GRPMantrabold.woff2') format('woff2');
+    font-weight: bold;
+}
+
+/* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
+@font-face {
+    font-family: 'มนตรา (GRP Mantra)'; 
+    src: url('fonts/GRPMantrathin.woff2') format('woff2');
+    font-weight: 300;
 }
 
 /* นำมาใช้งานกับตัวอักษรในเว็บ */
