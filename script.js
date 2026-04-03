@@ -25,10 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
-            font.weights.forEach(w => {
-                const btn = createPill(w, () => displayText.style.fontWeight = w);
-                weightButtons.appendChild(btn);
-            });
+// หาบรรทัดที่สร้างปุ่ม Weight ใน script.js แล้วปรับตามนี้ครับ
+font.weights.forEach(w => {
+    let label = w;
+    if(w === "lighter") label = "บาง";
+    if(w === "normal") label = "ปกติ";
+    if(w === "bold") label = "หนา";
+    
+    const btn = createPill(label, () => displayText.style.fontWeight = w);
+    weightButtons.appendChild(btn);
+});
             weightButtons.firstChild.click(); // คลิกอันแรกเป็นค่าเริ่มต้น
         } else {
             weightControl.classList.add('hidden');
