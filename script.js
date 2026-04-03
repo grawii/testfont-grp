@@ -51,17 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. ฟังก์ชันเพิ่มของลงตะกร้า (แบบเช็คซ้ำ) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
-        
-        // เช็คว่ามีของในตะกร้าหรือยัง
         const isDuplicate = cart.some(item => item.name === font.name);
         if (isDuplicate) {
             alert("มีฟอนต์นี้ในตะกร้าแล้วน้าา ♡");
             return;
         }
-
         cart.push({ name: font.name, price: font.price });
         updateCartUI();
-        
         const icon = document.getElementById('cartIcon');
         if(icon) {
             icon.classList.add('scale-125');
@@ -97,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 4. จุดที่ทำให้ไอคอนรถเข็นกดได้ (Event Listener) ---
+    // --- 4. Event Listeners สำหรับไอคอนรถเข็นและปุ่มซื้อ ---
     const cartIcon = document.getElementById('cartIcon');
     if (cartIcon) {
         cartIcon.onclick = () => {
@@ -112,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // ส่วนของ Font Tester เดิม
+    // --- 5. ระบบ Font Tester ---
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
@@ -125,24 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.style.fontFamily = font.family;
         priceLabel.textContent = font.price;
 
-        // จัดการส่วน Weight (น้ำหนัก)
+        // จัดการน้ำหนัก (Weight)
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
             let defaultBtn = null;
-
             font.weights.forEach(w => {
                 let label = w;
                 if(w === "100") label = "บาง";
                 if(w === "400" || w === "normal") label = "ปกติ";
                 if(w === "700" || w === "bold") label = "หนา";
-                
                 const btn = createPill(label, () => displayText.style.fontWeight = w);
                 weightButtons.appendChild(btn);
-
                 if (w === "400" || w === "normal") defaultBtn = btn;
             });
-
             if (defaultBtn) defaultBtn.click();
             else if (weightButtons.firstChild) weightButtons.firstChild.click();
         } else {
@@ -150,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontWeight = '400';
         }
 
-        // จัดการส่วน Style (ปกติ/โปร่ง)
+        // จัดการลักษณะ (Style)
         if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
@@ -161,35 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         displayText.classList.remove('font-outline');
                     }
-                });
-                styleButtons.appendChild(btn);
-            });
-            styleButtons.firstChild.click(); // ตั้งต้นที่ "ปกติ" (อันแรก)
-        } else {
-            styleControl.classList.add('hidden');
-            displayText.classList.remove('font-outline');
-        }
-    }
-
-            });
-
-            // ถ้ามีปุ่ม "ปกติ" ให้คลิกปุ่มนั้น แต่ถ้าไม่มีจริงๆ ให้คลิกปุ่มแรกสุดเหมือนเดิม
-            if (defaultBtn) {
-                defaultBtn.click();
-            } else if (weightButtons.firstChild) {
-                weightButtons.firstChild.click();
-            }
-        } else {
-            weightControl.classList.add('hidden');
-            displayText.style.fontWeight = 'normal';
-        }
-
-        if (font.features.includes('style')) {
-            styleControl.classList.remove('hidden');
-            styleButtons.innerHTML = '';
-            font.styles.forEach(s => {
-                const btn = createPill(s === 'outline' ? 'โปร่ง' : 'ปกติ', () => {
-                    s === 'outline' ? displayText.classList.add('font-outline') : displayText.classList.remove('font-outline');
                 });
                 styleButtons.appendChild(btn);
             });
