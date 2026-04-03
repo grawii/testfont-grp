@@ -71,10 +71,13 @@
     font-weight: 100;
 }
 
+/* --- ชุดคำสั่งบังคับแสดงผล 3D --- */
+
 @font-face {
-    font-family: 'grp09-3d'; /* ชื่อที่เราจะเรียกใช้ */
+    font-family: 'grp09-3d-force'; 
     src: url('fonts/GRP-Pocky-3D.woff2') format('woff2');
-    font-weight: 100 900;
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* ลักษณะฟอนต์แบบโปร่ง (Outline) */
@@ -85,9 +88,11 @@
 
 /* สร้าง Class สำหรับเรียกใช้ */
 /* ตรวจสอบให้แน่ใจว่าชื่อ grp09-3d สะกดตรงกับใน @font-face บรรทัดที่ 65 */
+/* บังคับใช้ฟอนต์ 3D เมื่อมีคลาส .font-3d */
 .font-3d {
-    font-family: 'grp09-3d' !important;
-    font-weight: normal !important; /* บังคับให้ใช้ค่าปกติของไฟล์ 3D */
+    font-family: 'grp09-3d-force' !important;
+    -webkit-text-stroke: 0px !important; /* ปิดเส้นขอบถ้าเคยเปิดไว้ */
+    color: #8c5a65 !important; /* บังคับสีให้กลับมาปกติ ไม่ให้โปร่ง */
 }
 
 :root {
