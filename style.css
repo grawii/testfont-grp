@@ -51,10 +51,42 @@
     font-weight: 100;
 }
 
+@font-face {
+    font-family: 'grp09';
+    src: url('fonts/GRPMantra.woff2') format('woff2');
+    font-weight: 400;
+}
+
+/* ตัวหนา (Bold) */
+@font-face {
+    font-family: 'grp09';
+    src: url('fonts/GRPMantrabold.woff2') format('woff2');
+    font-weight: 700;
+}
+
+/* ตัวบาง (Thin) - ใช้เลข 100 เพื่อความต่างที่ชัดเจน */
+@font-face {
+    font-family: 'grp09';
+    src: url('fonts/GRPMantrathin.woff2') format('woff2');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'grp09-3D'; /* ชื่อที่เราจะเรียกใช้ */
+    src: url('fonts/GRPHighSchool.woff2') format('woff2');
+    font-weight: 400;
+    font-style: 400;
+}
+
 /* ลักษณะฟอนต์แบบโปร่ง (Outline) */
 .font-outline {
     color: transparent !important;
     -webkit-text-stroke: 1px #8c5a65; /* ความหนาเส้นขอบ ปรับเลข 1px ได้ตามชอบครับ */
+}
+
+/* สร้าง Class สำหรับเรียกใช้ */
+.font-3d {
+    font-family: 'grp09-3d' !important;
 }
 
 :root {
