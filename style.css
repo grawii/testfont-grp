@@ -87,6 +87,7 @@
 /* ตรวจสอบให้แน่ใจว่าชื่อ grp09-3d สะกดตรงกับใน @font-face บรรทัดที่ 65 */
 .font-3d {
     font-family: 'grp09-3d' !important;
+    font-weight: normal !important; /* บังคับให้ใช้ค่าปกติของไฟล์ 3D */
 }
 
 :root {
