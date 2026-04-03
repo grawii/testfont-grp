@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cartIcon) cartIcon.onclick = () => document.getElementById('cartModal').classList.remove('hidden');
     if (buyBtn) buyBtn.onclick = (e) => { e.preventDefault(); addToCart(); };
 
+    // --- 2. ระบบ Font Tester ---
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
@@ -106,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.style.fontFamily = font.family;
         priceLabel.textContent = font.price;
 
+        // จัดการ Weight
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
@@ -123,25 +125,20 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontWeight = '400';
         }
 
-                if (font.features.includes('style')) {
+        // จัดการ Style (Outline / 3D)
+        if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
             font.styles.forEach(s => {
                 let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
                 const btn = createPill(label, () => {
-                    // ล้างคลาสเก่าออกให้หมดก่อน
                     displayText.classList.remove('font-outline', 'font-3d');
-                    
-                    if(s === 'outline') {
-                        displayText.classList.add('font-outline');
-                    } else if(s === '3D' || s === '3d') { // เช็คทั้งตัวใหญ่ตัวเล็ก
-                        displayText.classList.add('font-3d');
-                    }
+                    if(s === 'outline') displayText.classList.add('font-outline');
+                    if(s === '3D') displayText.classList.add('font-3d');
                 });
                 styleButtons.appendChild(btn);
             });
             styleButtons.firstChild.click();
-
         } else {
             styleControl.classList.add('hidden');
             displayText.classList.remove('font-outline', 'font-3d');
