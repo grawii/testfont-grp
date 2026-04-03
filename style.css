@@ -93,6 +93,7 @@
     font-family: 'grp09-3d-force' !important;
     -webkit-text-stroke: 0px !important; /* ปิดเส้นขอบถ้าเคยเปิดไว้ */
     color: #8c5a65 !important; /* บังคับสีให้กลับมาปกติ ไม่ให้โปร่ง */
+    font-weight: normal !important;
 }
 
 :root {
