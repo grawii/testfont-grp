@@ -1,9 +1,9 @@
 const fontList = [
     { 
-        name: "เด็กเดค (DekDec)", 
-        family: "DekDec", 
-        price: "129.-",
-        features: ["weight"], // มีแค่ปรับน้ำหนัก
+        name: "มนตรา (GRP Mantra)", 
+        family: "GRP", 
+        price: "89.-",
+        features: ["weight","style"], // มีแค่ปรับน้ำหนัก
         weights: ["lighter", "normal", "bold"] 
     },
     { 
