@@ -1,4 +1,3 @@
-// 1. ตัวแปรเก็บของในตะกร้า (ต้องอยู่นอกสุด)
 let cart = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,10 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const styleButtons = document.getElementById('styleButtons');
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
-    const buyBtn = document.querySelector('.contact-btn'); // ดึงปุ่ม Add to Cart
+    const buyBtn = document.querySelector('.contact-btn');
 
-    // --- สร้างฟังก์ชันจัดการตะกร้าให้เป็นสิทธิ์ของ Window เพื่อให้ HTML เรียกหาเจอ ---
-    
+    // --- 1. ฟังก์ชันจัดการตะกร้า (อัปเดต UI) ---
     window.updateCartUI = function() {
         const cartCount = document.getElementById('cartCount');
         const cartItems = document.getElementById('cartItems');
@@ -42,9 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(cart.length === 0 && cartItems) {
             cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
         }
-        
         if(totalPrice) totalPrice.textContent = total + ".-";
-        
         if(receiptList) {
             receiptList.innerHTML = cart.map(item => `
                 <div class="flex justify-between text-sm py-1"><span>${item.name}</span> <span>${item.price}</span></div>
@@ -52,10 +48,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // --- 2. ฟังก์ชันเพิ่มของลงตะกร้า (แบบเช็คซ้ำ) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
+        
+        // เช็คว่ามีของในตะกร้าหรือยัง
+        const isDuplicate = cart.some(item => item.name === font.name);
+        if (isDuplicate) {
+            alert("มีฟอนต์นี้ในตะกร้าแล้วน้าา ♡");
+            return;
+        }
+
         cart.push({ name: font.name, price: font.price });
         updateCartUI();
+        
         const icon = document.getElementById('cartIcon');
         if(icon) {
             icon.classList.add('scale-125');
@@ -68,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     };
 
+    // --- 3. ฟังก์ชันเปิด/ปิด หน้าต่างต่างๆ ---
     window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
     window.goToCheckout = () => {
         if(cart.length === 0) return alert("เลือกฟอนต์ใส่ตะกร้าก่อนน้าา ♡");
@@ -78,21 +85,26 @@ document.addEventListener('DOMContentLoaded', () => {
     window.copyAndLine = function() {
         const email = document.getElementById('userEmail').value;
         if(!email) return alert("องุ่นขออีเมลสำหรับส่งไฟล์หน่อยน้าา");
-
         let text = "🛒 รายการสั่งซื้อ GRP House\n--------------------------\n";
         cart.forEach((item, i) => text += `${i+1}. ${item.name} (${item.price})\n`);
         text += "--------------------------\n";
         text += `ยอดรวมทั้งหมด: ${document.getElementById('totalPrice').textContent}\n`;
         text += `อีเมลลูกค้า: ${email}\n\n`;
         text += "คัดลอกข้อความนี้แล้วส่งให้แอดมินได้เลยค่ะ ♡";
-
         navigator.clipboard.writeText(text).then(() => {
             alert("คัดลอกใบเสร็จแล้วค่ะ! กำลังพาไปที่ Line นะคะ");
             window.location.href = "https://line.me/ti/p/@309ranuu";
         });
     };
 
-    // --- ส่วนสั่งงานปุ่ม ---
+    // --- 4. จุดที่ทำให้ไอคอนรถเข็นกดได้ (Event Listener) ---
+    const cartIcon = document.getElementById('cartIcon');
+    if (cartIcon) {
+        cartIcon.onclick = () => {
+            document.getElementById('cartModal').classList.remove('hidden');
+        };
+    }
+
     if (buyBtn) {
         buyBtn.onclick = (e) => {
             e.preventDefault();
@@ -100,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // 1. สร้างตัวเลือกฟอนต์
+    // ส่วนของ Font Tester เดิม
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
