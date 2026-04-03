@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 styleButtons.appendChild(btn);
             });
             styleButtons.firstChild.click();
-        }
+
         } else {
             styleControl.classList.add('hidden');
             displayText.classList.remove('font-outline', 'font-3d');
