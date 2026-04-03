@@ -16,7 +16,7 @@
 @font-face {
     font-family: 'มนตรา (GRP Mantra)'; 
     src: url('fonts/GRPMantrathin.woff2') format('woff2');
-    font-weight: 300;
+    font-weight: lighter;
 }
 
 /* นำมาใช้งานกับตัวอักษรในเว็บ */
