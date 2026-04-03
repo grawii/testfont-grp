@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // หาบรรทัดที่สร้างปุ่ม Weight ใน script.js แล้วปรับตามนี้ครับ
 font.weights.forEach(w => {
     let label = w;
-    if(w === "lighter") label = "บาง";
+    if(w === "300") label = "บาง";
     if(w === "normal") label = "ปกติ";
     if(w === "bold") label = "หนา";
     
