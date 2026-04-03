@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const priceLabel = document.getElementById('priceLabel');
     const buyBtn = document.querySelector('.contact-btn');
 
-    // --- 1. ฟังก์ชันจัดการตะกร้า (อัปเดต UI) ---
+    // --- 1. ฟังก์ชันจัดการตะกร้า ---
     window.updateCartUI = function() {
         const cartCount = document.getElementById('cartCount');
         const cartItems = document.getElementById('cartItems');
@@ -48,11 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 2. ฟังก์ชันเพิ่มของลงตะกร้า (แบบเช็คซ้ำ) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
-        const isDuplicate = cart.some(item => item.name === font.name);
-        if (isDuplicate) {
+        if (cart.some(item => item.name === font.name)) {
             alert("มีฟอนต์นี้ในตะกร้าแล้วน้าา ♡");
             return;
         }
@@ -70,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     };
 
-    // --- 3. ฟังก์ชันเปิด/ปิด หน้าต่างต่างๆ ---
     window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
     window.goToCheckout = () => {
         if(cart.length === 0) return alert("เลือกฟอนต์ใส่ตะกร้าก่อนน้าา ♡");
@@ -93,22 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 4. Event Listeners สำหรับไอคอนรถเข็นและปุ่มซื้อ ---
     const cartIcon = document.getElementById('cartIcon');
-    if (cartIcon) {
-        cartIcon.onclick = () => {
-            document.getElementById('cartModal').classList.remove('hidden');
-        };
-    }
+    if (cartIcon) cartIcon.onclick = () => document.getElementById('cartModal').classList.remove('hidden');
+    if (buyBtn) buyBtn.onclick = (e) => { e.preventDefault(); addToCart(); };
 
-    if (buyBtn) {
-        buyBtn.onclick = (e) => {
-            e.preventDefault();
-            addToCart();
-        };
-    }
-
-    // --- 5. ระบบ Font Tester ---
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
@@ -121,16 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.style.fontFamily = font.family;
         priceLabel.textContent = font.price;
 
-        // จัดการน้ำหนัก (Weight)
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
             let defaultBtn = null;
             font.weights.forEach(w => {
-                let label = w;
-                if(w === "100") label = "บาง";
-                if(w === "400" || w === "normal") label = "ปกติ";
-                if(w === "700" || w === "bold") label = "หนา";
+                let label = (w === "100") ? "บาง" : (w === "400" || w === "normal") ? "ปกติ" : (w === "700" || w === "bold") ? "หนา" : w;
                 const btn = createPill(label, () => displayText.style.fontWeight = w);
                 weightButtons.appendChild(btn);
                 if (w === "400" || w === "normal") defaultBtn = btn;
@@ -142,34 +123,22 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontWeight = '400';
         }
 
-        // จัดการลักษณะ (Style)
-        // มองหาท่อนจัดการ Style ใน script.js แล้วปรับตามนี้ครับ
-if (font.features.includes('style')) {
-    styleControl.classList.remove('hidden');
-    styleButtons.innerHTML = '';
-    font.styles.forEach(s => {
-        // เปลี่ยนชื่อปุ่มให้ดูง่าย
-        let label = "ปกติ";
-        if(s === "outline") label = "โปร่ง";
-        if(s === "3D") label = "3D";
-
-        const btn = createPill(label, () => {
-            // ล้าง Class พิเศษออกก่อนทุกครั้ง
-            displayText.classList.remove('font-outline', 'font-3d');
-            
-            if(s === 'outline') {
-                displayText.classList.add('font-outline');
-            } else if(s === '3D') {
-                displayText.classList.add('font-3d'); // ใส่ Class font-3d ที่เราเขียนใน CSS
-            }
-        });
-        styleButtons.appendChild(btn);
-    });
-    styleButtons.firstChild.click();
-}
+        if (font.features.includes('style')) {
+            styleControl.classList.remove('hidden');
+            styleButtons.innerHTML = '';
+            font.styles.forEach(s => {
+                let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
+                const btn = createPill(label, () => {
+                    displayText.classList.remove('font-outline', 'font-3d');
+                    if(s === 'outline') displayText.classList.add('font-outline');
+                    if(s === '3D') displayText.classList.add('font-3d');
+                });
+                styleButtons.appendChild(btn);
+            });
+            styleButtons.firstChild.click();
         } else {
             styleControl.classList.add('hidden');
-            displayText.classList.remove('font-outline');
+            displayText.classList.remove('font-outline', 'font-3d');
         }
     }
 
