@@ -83,6 +83,77 @@
         </div>
 
     </div>
+    <div id="cartIcon" class="fixed top-6 right-6 z-50 cursor-pointer transition-all duration-300">
+    <div class="relative bg-white p-3 rounded-2xl shadow-lg border-2 border-[#ffdce3] hover:bg-[#fff0f3]">
+        <svg class="w-7 h-7 text-[#8c5a65]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span id="cartCount" class="absolute -top-2 -right-2 bg-[#ff9eaa] text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-white shadow-sm">0</span>
+    </div>
+</div>
+
+<div id="cartModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
+    <div class="soft-window w-full max-w-sm shadow-2xl animate-pop">
+        <div class="window-header">
+            <div class="flex gap-1.5 mr-auto">
+                <div class="dot dot-1 cursor-pointer" onclick="closeCart()"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
+            </div>
+            <span class="font-eng font-bold text-[#8c5a65] text-[10px] tracking-widest">MY_CART</span>
+        </div>
+        <div class="p-6">
+            <h3 class="text-center font-bold text-[#8c5a65] mb-4 text-sm">รายการฟอนต์ที่เลือก</h3>
+            
+            <div id="cartItems" class="space-y-1 max-h-48 overflow-y-auto mb-4 pr-2">
+                <p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>
+            </div>
+
+            <div class="border-t-2 border-dashed border-pink-100 pt-4 mb-6">
+                <div class="flex justify-between font-black text-[#8c5a65]">
+                    <span>ยอดรวมทั้งสิ้น</span>
+                    <span id="totalPrice">0.-</span>
+                </div>
+            </div>
+
+            <button onclick="goToCheckout()" class="contact-btn w-full text-xs py-3 shadow-md">
+                แจ้งรายละเอียดการรับไฟล์
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="checkoutPage" class="fixed inset-0 z-[70] hidden bg-[#fffcfd] overflow-y-auto p-4 flex items-center justify-center">
+    <div class="w-full max-w-md soft-window shadow-xl relative bg-white">
+        <div class="absolute top-4 right-4 opacity-10 rotate-12">
+            <svg class="w-20 h-20 text-[#ff9eaa]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+
+        <div class="p-8 space-y-6 text-center">
+            <div class="space-y-1">
+                <h2 class="text-xl font-black text-[#8c5a65] tracking-tight">RECEIPT</h2>
+                <p class="text-[10px] text-pink-300 uppercase tracking-widest">GRP House Official Store</p>
+            </div>
+
+            <div id="receiptList" class="text-left space-y-2 border-y-2 border-dashed border-pink-100 py-6 font-medium text-[#8c5a65]">
+                </div>
+            
+            <div class="space-y-2 text-left">
+                <label class="text-[10px] font-black text-[#ff9eaa] uppercase tracking-tighter">Email for delivery</label>
+                <input type="email" id="userEmail" class="w-full p-4 rounded-2xl border-2 border-pink-50 bg-[#fffafb] text-[#8c5a65] text-sm outline-none focus:border-[#ff9eaa] transition-all" placeholder="example@gmail.com">
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="copyAndLine()" class="contact-btn w-full py-4 text-sm font-black shadow-lg">
+                    COPY & OPEN LINE
+                </button>
+                <button onclick="closeCheckout()" class="text-[10px] text-[#8c5a65] underline opacity-40 hover:opacity-100 transition-opacity uppercase font-bold">
+                    Back to edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </main>
 
     <script src="products.js"></script>
