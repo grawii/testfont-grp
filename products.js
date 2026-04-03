@@ -1,7 +1,7 @@
 const fontList = [
     { 
         name: "มนตรา (GRP Mantra)", 
-        family: "GRP", 
+        family: "grp01", 
         price: "89.-",
         features: ["weight","style"], // มีแค่ปรับน้ำหนัก
         weights: ["lighter", "normal", "bold"] 
