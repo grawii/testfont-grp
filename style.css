@@ -16,7 +16,7 @@
 @font-face {
     font-family: 'grp01'; 
     src: url('fonts/GRPMantrathin.woff2') format('woff2');
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 /* นำมาใช้งานกับตัวอักษรในเว็บ */
