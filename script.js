@@ -57,12 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- ส่วนสำคัญ: ผูกคำสั่ง Add to Cart เข้ากับปุ่มสั่งซื้อข้างล่าง ---
-        const buyBtn = document.querySelector('.contact-btn');
-        if (buyBtn) {
-            buyBtn.onclick = (e) => {
-                e.preventDefault();
-                addToCart();
-            };
+        // บรรทัดนี้จะไปหาปุ่มที่มีคลาส .contact-btn แล้วสั่งให้มันทำงานฟังก์ชัน addToCart แทน
+const buyBtn = document.querySelector('.contact-btn');
+if (buyBtn) {
+    buyBtn.onclick = (e) => {
+        e.preventDefault(); // หยุดการเปิดเว็บ
+        addToCart();        // สั่งให้เลขเด้งแทน
+    };
         }
     }
 
