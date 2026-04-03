@@ -1,4 +1,4 @@
-// 1. เพิ่มตัวแปรสำหรับเก็บสินค้าในตะกร้าไว้บนสุด
+// 1. ตัวแปรเก็บของในตะกร้า (ต้องอยู่นอกสุด)
 let cart = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,108 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const styleButtons = document.getElementById('styleButtons');
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
+    const buyBtn = document.querySelector('.contact-btn'); // ดึงปุ่ม Add to Cart
 
-    // สร้างตัวเลือกฟอนต์
-    fontList.forEach((font, index) => {
-        const opt = document.createElement('option');
-        opt.value = index;
-        opt.textContent = font.name;
-        fontSelect.appendChild(opt);
-    });
-
-    function updateControls() {
-        const font = fontList[fontSelect.value];
-        displayText.style.fontFamily = font.family;
-        priceLabel.textContent = font.price;
-
-        if (font.features.includes('weight')) {
-            weightControl.classList.remove('hidden');
-            weightButtons.innerHTML = '';
-            font.weights.forEach(w => {
-                let label = w;
-                if(w === "300") label = "บาง";
-                if(w === "normal") label = "ปกติ";
-                if(w === "bold") label = "หนา";
-                
-                const btn = createPill(label, () => displayText.style.fontWeight = w);
-                weightButtons.appendChild(btn);
-            });
-            weightButtons.firstChild.click();
-        } else {
-            weightControl.classList.add('hidden');
-            displayText.style.fontWeight = 'normal';
-        }
-
-        if (font.features.includes('style')) {
-            styleControl.classList.remove('hidden');
-            styleButtons.innerHTML = '';
-            font.styles.forEach(s => {
-                const btn = createPill(s === 'outline' ? 'โปร่ง' : 'ปกติ', () => {
-                    s === 'outline' ? displayText.classList.add('font-outline') : displayText.classList.remove('font-outline');
-                });
-                styleButtons.appendChild(btn);
-            });
-            styleButtons.firstChild.click();
-        } else {
-            styleControl.classList.add('hidden');
-            displayText.classList.remove('font-outline');
-        }
-
-        // --- ส่วนสำคัญ: ผูกคำสั่ง Add to Cart เข้ากับปุ่มสั่งซื้อข้างล่าง ---
-        // บรรทัดนี้จะไปหาปุ่มที่มีคลาส .contact-btn แล้วสั่งให้มันทำงานฟังก์ชัน addToCart แทน
-const buyBtn = document.querySelector('.contact-btn');
-if (buyBtn) {
-    buyBtn.onclick = (e) => {
-        e.preventDefault(); // หยุดการเปิดเว็บ
-        addToCart();        // สั่งให้เลขเด้งแทน
-    };
-        }
-    }
-
-    function createPill(text, callback) {
-        const btn = document.createElement('button');
-        btn.className = 'pill-btn';
-        btn.textContent = text;
-        btn.onclick = () => {
-            btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            callback();
-        };
-        return btn;
-    }
-
-    // --- ระบบจัดการตะกร้าสินค้า ---
-
+    // --- สร้างฟังก์ชันจัดการตะกร้าให้เป็นสิทธิ์ของ Window เพื่อให้ HTML เรียกหาเจอ ---
+    
     window.updateCartUI = function() {
         const cartCount = document.getElementById('cartCount');
         const cartItems = document.getElementById('cartItems');
         const totalPrice = document.getElementById('totalPrice');
         const receiptList = document.getElementById('receiptList');
         
-        cartCount.textContent = cart.length;
-        cartItems.innerHTML = '';
+        if(cartCount) cartCount.textContent = cart.length;
+        if(cartItems) cartItems.innerHTML = '';
+        
         let total = 0;
-
         cart.forEach((item, index) => {
-            const priceNum = parseInt(item.price.replace(/[^\d]/g, ''));
+            const priceNum = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
             total += priceNum;
-            cartItems.innerHTML += `
-                <div class="flex justify-between items-center text-[#8c5a65] py-2 border-b border-pink-50">
-                    <div class="flex items-center gap-2 text-xs font-bold">
-                        <button onclick="removeFromCart(${index})" class="w-5 h-5 flex items-center justify-center rounded-full bg-pink-100 text-[#ff9eaa]">✕</button>
-                        <span>${item.name}</span>
+            if(cartItems) {
+                cartItems.innerHTML += `
+                    <div class="flex justify-between items-center text-[#8c5a65] py-2 border-b border-pink-50">
+                        <div class="flex items-center gap-2 text-xs font-bold">
+                            <button onclick="removeFromCart(${index})" class="w-5 h-5 flex items-center justify-center rounded-full bg-pink-100 text-[#ff9eaa]">✕</button>
+                            <span>${item.name}</span>
+                        </div>
+                        <span class="font-bold text-xs">${item.price}</span>
                     </div>
-                    <span class="font-bold text-xs">${item.price}</span>
-                </div>
-            `;
+                `;
+            }
         });
 
-        if(cart.length === 0) cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
-        totalPrice.textContent = total + ".-";
+        if(cart.length === 0 && cartItems) {
+            cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
+        }
         
-        receiptList.innerHTML = cart.map(item => `
-            <div class="flex justify-between text-sm py-1"><span>${item.name}</span> <span>${item.price}</span></div>
-        `).join('') + `<div class="flex justify-between font-black mt-4 text-lg border-t-2 border-pink-100 pt-2 text-[#8c5a65]"><span>รวมยอดทั้งหมด</span> <span>${total}.-</span></div>`;
+        if(totalPrice) totalPrice.textContent = total + ".-";
+        
+        if(receiptList) {
+            receiptList.innerHTML = cart.map(item => `
+                <div class="flex justify-between text-sm py-1"><span>${item.name}</span> <span>${item.price}</span></div>
+            `).join('') + `<div class="flex justify-between font-black mt-4 text-lg border-t-2 border-pink-100 pt-2 text-[#8c5a65]"><span>รวมยอดทั้งหมด</span> <span>${total}.-</span></div>`;
+        }
     };
 
     window.addToCart = function() {
@@ -118,8 +57,10 @@ if (buyBtn) {
         cart.push({ name: font.name, price: font.price });
         updateCartUI();
         const icon = document.getElementById('cartIcon');
-        icon.classList.add('scale-125');
-        setTimeout(() => icon.classList.remove('scale-125'), 200);
+        if(icon) {
+            icon.classList.add('scale-125');
+            setTimeout(() => icon.classList.remove('scale-125'), 200);
+        }
     };
 
     window.removeFromCart = function(index) {
@@ -147,13 +88,76 @@ if (buyBtn) {
 
         navigator.clipboard.writeText(text).then(() => {
             alert("คัดลอกใบเสร็จแล้วค่ะ! กำลังพาไปที่ Line นะคะ");
-            window.location.href = "https://line.me/ti/p/@309ranuu"; // แก้ตรงนี้เป็นลิ้งค์ไลน์องุ่นนะ
+            window.location.href = "https://line.me/ti/p/@309ranuu";
         });
     };
 
-    document.getElementById('cartIcon').onclick = () => document.getElementById('cartModal').classList.remove('hidden');
+    // --- ส่วนสั่งงานปุ่ม ---
+    if (buyBtn) {
+        buyBtn.onclick = (e) => {
+            e.preventDefault();
+            addToCart();
+        };
+    }
 
-    // Event Listeners เดิม
+    // 1. สร้างตัวเลือกฟอนต์
+    fontList.forEach((font, index) => {
+        const opt = document.createElement('option');
+        opt.value = index;
+        opt.textContent = font.name;
+        fontSelect.appendChild(opt);
+    });
+
+    function updateControls() {
+        const font = fontList[fontSelect.value];
+        displayText.style.fontFamily = font.family;
+        priceLabel.textContent = font.price;
+
+        if (font.features.includes('weight')) {
+            weightControl.classList.remove('hidden');
+            weightButtons.innerHTML = '';
+            font.weights.forEach(w => {
+                let label = w;
+                if(w === "300") label = "บาง";
+                if(w === "normal") label = "ปกติ";
+                if(w === "bold") label = "หนา";
+                const btn = createPill(label, () => displayText.style.fontWeight = w);
+                weightButtons.appendChild(btn);
+            });
+            weightButtons.firstChild.click();
+        } else {
+            weightControl.classList.add('hidden');
+            displayText.style.fontWeight = 'normal';
+        }
+
+        if (font.features.includes('style')) {
+            styleControl.classList.remove('hidden');
+            styleButtons.innerHTML = '';
+            font.styles.forEach(s => {
+                const btn = createPill(s === 'outline' ? 'โปร่ง' : 'ปกติ', () => {
+                    s === 'outline' ? displayText.classList.add('font-outline') : displayText.classList.remove('font-outline');
+                });
+                styleButtons.appendChild(btn);
+            });
+            styleButtons.firstChild.click();
+        } else {
+            styleControl.classList.add('hidden');
+            displayText.classList.remove('font-outline');
+        }
+    }
+
+    function createPill(text, callback) {
+        const btn = document.createElement('button');
+        btn.className = 'pill-btn';
+        btn.textContent = text;
+        btn.onclick = () => {
+            btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            callback();
+        };
+        return btn;
+    }
+
     fontSelect.onchange = updateControls;
     document.getElementById('fontSize').oninput = (e) => {
         const val = e.target.value + 'px';
