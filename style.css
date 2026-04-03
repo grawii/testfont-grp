@@ -1,47 +1,60 @@
-/* สำหรับตัวปกติ */
+/* ใส่ตรงนี้เพื่อล็อคให้แสดงผลตามไฟล์จริง 100% */
+#displayText {
+    font-family: 'grp01', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none; /* สำคัญมาก: ห้าม Browser ปรับความหนาเอง */
+}
+
+/* -----------------------------------------
+   ประกาศ Font-face แยกตามน้ำหนัก (ตัวอย่างฟอนต์ชุดที่ 1)
+   ----------------------------------------- */
+
+/* ตัวปกติ (Regular) */
 @font-face {
-    font-family: 'grp01'; /* ชื่อที่เราจะเรียกใช้ */
+    font-family: 'grp01';
     src: url('fonts/GRPMantra.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 400;
 }
 
-/* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
+/* ตัวหนา (Bold) */
 @font-face {
-    font-family: 'grp01'; 
+    font-family: 'grp01';
     src: url('fonts/GRPMantrabold.woff2') format('woff2');
-    font-weight: bold;
+    font-weight: 700;
 }
 
-/* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
+/* ตัวบาง (Thin) - ใช้เลข 100 เพื่อความต่างที่ชัดเจน */
 @font-face {
-    font-family: 'grp01'; 
+    font-family: 'grp01';
     src: url('fonts/GRPMantrathin.woff2') format('woff2');
-    font-weight: 300;
+    font-weight: 100;
 }
 
 @font-face {
     font-family: 'grp02'; /* ชื่อที่เราจะเรียกใช้ */
     src: url('fonts/GRPHighSchool.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 400;
 }
 
 /* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
 @font-face {
     font-family: 'grp02'; 
     src: url('fonts/GRPHighSchoolbold.woff2') format('woff2');
-    font-weight: bold;
+    font-weight: 700;
 }
 
 /* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
 @font-face {
     font-family: 'grp02'; 
     src: url('fonts/GRPHighSchoolthin.woff2') format('woff2');
-    font-weight: 300;
+    font-weight: 100;
 }
 
-/* นำมาใช้งานกับตัวอักษรในเว็บ */
-#displayText {
-    font-family: 'grp01', sans-serif;
+/* ลักษณะฟอนต์แบบโปร่ง (Outline) */
+.font-outline {
+    color: transparent !important;
+    -webkit-text-stroke: 1px #8c5a65; /* ความหนาเส้นขอบ ปรับเลข 1px ได้ตามชอบครับ */
 }
 
 :root {
