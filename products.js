@@ -4,14 +4,14 @@ const fontList = [
         family: "grp01", 
         price: "89.-",
         features: ["weight"], // มีแค่ปรับน้ำหนัก
-        weights: ["300", "normal", "bold"] 
+        weights: ["100", "400", "700"] 
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
         family: "grp02", 
         price: "129.-",
         features: ["weight"], // มีแค่ปรับโปร่ง/ปกติ
-        weights: ["300", "normal", "bold"] 
+        weights: ["100", "400", "700"] 
     },
     { 
         name: "พัฟฟี่ป็อป (GRP PuffyPop)", 
@@ -25,7 +25,7 @@ const fontList = [
         family: "grp04", 
         price: "89.-",
         features: ["weight", "style"], // มีทั้งสองอย่าง
-        weights: ["300", "normal", "bold"],
+        weights: ["100", "400", "700"],
         styles: ["normal", "3D"]
     }
 ];
