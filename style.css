@@ -96,7 +96,6 @@
 .font-3d {
     color: transparent !important;
     -webkit-text-stroke: 1.5px #8c5a65 !important; /* ปรับความหนาเส้นขอบตามชอบ (เช่น 1px หรือ 1.5px) */
-    font-family: inherit !important; /* ใช้ฟอนต์เดิมนั่นแหละแค่ทำให้โปร่ง */
 }
 
 :root {
