@@ -90,7 +90,7 @@
     </div>
 
     <div id="cartModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
-        <div class="soft-window w-full max-w-sm shadow-2xl">
+        <div class="soft-window w-full max-w-sm shadow-2xl animate-pop">
             <div class="window-header">
                 <div class="flex gap-1.5 mr-auto">
                     <div class="dot dot-1 cursor-pointer" onclick="closeCart()"></div>
@@ -105,7 +105,30 @@
                     <span>ยอดรวมทั้งสิ้น</span>
                     <span id="totalPrice">0.-</span>
                 </div>
-                <button onclick="alert('กำลังพัฒนาจ้า!')" class="contact-btn w-full text-xs">แจ้งรายละเอียดการรับไฟล์</button>
+                <button onclick="goToCheckout()" class="contact-btn w-full text-xs py-3">แจ้งรายละเอียดการรับไฟล์</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutPage" class="fixed inset-0 z-[70] hidden bg-[#fffcfd] overflow-y-auto p-4 flex items-center justify-center">
+        <div class="w-full max-w-md soft-window shadow-xl relative bg-white">
+            <div class="p-8 space-y-6 text-center">
+                <div class="space-y-1">
+                    <h2 class="text-xl font-black text-[#8c5a65]">RECEIPT</h2>
+                    <p class="text-[10px] text-pink-300 uppercase tracking-widest">GRP House Official Store</p>
+                </div>
+
+                <div id="receiptList" class="text-left space-y-2 border-y-2 border-dashed border-pink-100 py-6 font-medium text-[#8c5a65]"></div>
+                
+                <div class="space-y-2 text-left">
+                    <label class="text-[10px] font-black text-[#ff9eaa] uppercase">Email for delivery</label>
+                    <input type="email" id="userEmail" class="w-full p-4 rounded-2xl border-2 border-pink-50 bg-[#fffafb] text-[#8c5a65] text-sm outline-none focus:border-[#ff9eaa]" placeholder="example@gmail.com">
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="copyAndLine()" class="contact-btn w-full py-4 text-sm font-black shadow-lg">COPY & OPEN LINE</button>
+                    <button onclick="closeCheckout()" class="text-[10px] text-[#8c5a65] underline opacity-40 uppercase font-bold">Back to edit</button>
+                </div>
             </div>
         </div>
     </div>
