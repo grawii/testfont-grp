@@ -90,14 +90,17 @@
     -webkit-text-stroke: 1px #8c5a65 !important;
 }
 
-/* สร้าง Class สำหรับเรียกใช้ */
-/* ตรวจสอบให้แน่ใจว่าชื่อ grp09-3d สะกดตรงกับใน @font-face บรรทัดที่ 65 */
-/* บังคับใช้ฟอนต์ 3D เมื่อมีคลาส .font-3d */
-/* คลาสที่ใช้เรียก ต้องชนะทุกกฎ */
-/* แก้ไขคลาส .font-3d ให้กลายเป็นตัวโปร่งแทน */
-/* คลาสสำหรับฟอนต์ 3D (บังคับเปลี่ยน Font Family) */
+/* --- ประกาศตัว 3D --- */
+@font-face {
+    font-family: 'GRPPocky3D'; /* ใช้ชื่อนี้เป็นชื่อหลัก */
+    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* คลาสที่ JavaScript จะเรียกใช้ */
 .font-3d {
-    font-family: 'grp09-3d-force' !important;
+    font-family: 'GRPPocky3D' !important; /* ต้องสะกดเหมือนข้างบนเป๊ะ */
     color: #8c5a65 !important;
     -webkit-text-stroke: 0px !important;
     font-weight: normal !important;
