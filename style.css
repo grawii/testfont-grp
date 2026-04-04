@@ -97,9 +97,10 @@
 /* แก้ไขคลาส .font-3d ให้กลายเป็นตัวโปร่งแทน */
 /* คลาสสำหรับฟอนต์ 3D (บังคับเปลี่ยน Font Family) */
 .font-3d {
-    font-family: 'grp09-3d-file' !important;
-    color: #8c5a65 !important; /* บังคับสีปกติ ไม่ให้โปร่ง */
-    -webkit-text-stroke: 0px !important; /* ปิดเส้นขอบถ้ามี */
+    font-family: 'grp09-3d-force' !important;
+    color: #8c5a65 !important;
+    -webkit-text-stroke: 0px !important;
+    font-weight: normal !important;
 }
 
 
