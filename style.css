@@ -76,9 +76,9 @@
 /* --- ประกาศตัว 3D ให้ชัดเจน --- */
 /* --- ประกาศตัว 3D ให้ชัดเจน --- */
 @font-face {
-    font-family: 'grp09-3d-file'; 
-    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2');
-    /* ใส่ช่วงน้ำหนักไว้ให้ครอบคลุม ไม่ว่ากดปุ่มไหน 3D ก็จะติด */
+    font-family: 'grp09-3d-force'; 
+    /* ลบคำว่า fonts/ ออก เพราะไฟล์วางอยู่ข้างนอกเหมือนกัน */
+    src: url('GRP-Pocky-3D.woff2') format('woff2'); 
     font-weight: 100 900; 
     font-style: normal;
 }
