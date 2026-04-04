@@ -56,11 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         cart.push({ name: font.name, price: font.price });
         updateCartUI();
-        const icon = document.getElementById('cartIcon');
-        if(icon) {
-            icon.classList.add('scale-125');
-            setTimeout(() => icon.classList.remove('scale-125'), 200);
-        }
     };
 
     window.removeFromCart = function(index) {
@@ -83,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         text += "--------------------------\n";
         text += `ยอดรวมทั้งหมด: ${document.getElementById('totalPrice').textContent}\n`;
         text += `อีเมลลูกค้า: ${email}\n\n`;
-        text += "คัดลอกข้อความนี้แล้วส่งให้แอดมินได้เลยค่ะ ♡";
         navigator.clipboard.writeText(text).then(() => {
             alert("คัดลอกใบเสร็จแล้วค่ะ! กำลังพาไปที่ Line นะคะ");
             window.location.href = "https://line.me/ti/p/@309ranuu";
@@ -107,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.style.fontFamily = font.family;
         priceLabel.textContent = font.price;
 
-        // จัดการ Weight
         if (font.features.includes('weight')) {
             weightControl.classList.remove('hidden');
             weightButtons.innerHTML = '';
@@ -125,26 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontWeight = '400';
         }
 
-        // จัดการ Style (Outline / 3D)
-        // จัดการลักษณะ (Style)
         if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
-            
             font.styles.forEach(s => {
-                // ถ้าใน products.js เขียนว่า "3D" ให้ปุ่มโชว์คำว่า "3D"
                 let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
-                
                 const btn = createPill(label, () => {
-                    // ล้างคลาสเก่าออกก่อน
                     displayText.classList.remove('font-outline', 'font-3d');
-                    
-                    if(s === 'outline') {
-                        displayText.classList.add('font-outline');
-                    } else if(s === '3D') {
-                        // เมื่อกดปุ่ม 3D ให้แอดคลาส .font-3d (ที่เราตั้งค่าให้มันโปร่งใน CSS)
-                        displayText.classList.add('font-3d');
-                    }
+                    if(s === 'outline') displayText.classList.add('font-outline');
+                    if(s === '3D') displayText.classList.add('font-3d');
                 });
                 styleButtons.appendChild(btn);
             });
