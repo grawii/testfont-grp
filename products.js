@@ -33,13 +33,17 @@ const fontList = [
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
         price: "89.-",
+        // หมวดกลวงๆ ที่ระบุชื่อฟอนต์จาก CSS ไว้
         mapping: {
-            "บาง": "grp09-thin",
-            "ปกติ": "grp09-reg",
-            "หนา": "grp09-bold",
-            "3D": "grp09-3d"
+            "บาง": "pocky-thin",
+            "ปกติ": "pocky-reg",
+            "หนา": "pocky-bold",
+            "3D": "pocky-3d"
         },
         weights: ["บาง", "ปกติ", "หนา"],
-        styles: ["ปกติ", "3D"]
+        styles: ["ปกติ", "3D", "โปร่ง"]
     }
+    // ฟอนต์อื่นๆ ก็ทำ mapping แบบเดียวกันครับ
+];
+
 ];
