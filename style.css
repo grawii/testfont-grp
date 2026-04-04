@@ -75,10 +75,10 @@
 
 /* --- ประกาศตัว 3D ให้ชัดเจน --- */
 /* --- ประกาศตัว 3D ให้ชัดเจน --- */
+/* --- ตัว 3D เจ้าปัญหา --- */
 @font-face {
     font-family: 'grp09-3d-force'; 
-    /* ลบคำว่า fonts/ ออก เพราะไฟล์วางอยู่ข้างนอกเหมือนกัน */
-    src: url('GRP-Pocky-3D.woff2') format('woff2'); 
+    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); /* เติม fonts/ ให้ตรงกับ Folder */
     font-weight: 100 900; 
     font-style: normal;
 }
