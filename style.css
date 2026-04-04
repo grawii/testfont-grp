@@ -6,7 +6,7 @@
 }
 
 /* --- มนตรา --- */
-@font-face { font-family: 'grp01-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
+@font-face { font-family: 'grp01-reg';  src: url('GRPMantra.woff2') format('woff2'); }
 @font-face { font-family: 'grp01-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
 @font-face { font-family: 'grp01-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
 
@@ -20,7 +20,7 @@
 @font-face { font-family: 'grp09-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
 @font-face { font-family: 'grp09-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
 /* ตัว 3D ใช้ไฟล์ที่องุ่นส่งมา */
-@font-face { font-family: 'grp09-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
+@font-face { font-family: 'grp09-3d';   src: url('GRP-Pocky-3D.woff2') format('woff2'); }
 
 /* --- คลาสพิเศษ --- */
 .font-outline-mode {
