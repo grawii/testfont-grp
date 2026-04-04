@@ -1,3 +1,4 @@
+// คัดลอกไปวางทับ script.js ทั้งหมด
 let cart = [];
 let currentWeight = "ปกติ";
 let currentStyle = "ปกติ";
@@ -12,19 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPreview() {
         const font = fontList[fontSelect.value];
         displayText.classList.remove('font-outline-mode');
-        
-        // บังคับให้ Browser ไม่คิดเอง
         displayText.style.fontWeight = "normal";
         displayText.style.fontStyle = "normal";
 
         if (currentStyle === "3D") {
             displayText.style.fontFamily = font.mapping["3D"];
-        } 
-        else if (currentStyle === "โปร่ง") {
+        } else if (currentStyle === "โปร่ง") {
             displayText.style.fontFamily = font.mapping[currentWeight];
             displayText.classList.add('font-outline-mode');
-        } 
-        else {
+        } else {
             displayText.style.fontFamily = font.mapping[currentWeight];
         }
     }
@@ -33,29 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const font = fontList[fontSelect.value];
         priceLabel.textContent = font.price;
 
-        // Weight Buttons
         weightButtons.innerHTML = '';
         if (font.weights && font.weights.length > 0) {
             document.getElementById('weightControl').classList.remove('hidden');
             font.weights.forEach(w => {
-                const btn = createPill(w, () => {
-                    currentWeight = w;
-                    renderPreview();
-                });
+                const btn = createPill(w, () => { currentWeight = w; renderPreview(); });
                 if (w === currentWeight) btn.classList.add('active');
                 weightButtons.appendChild(btn);
             });
         }
 
-        // Style Buttons
         styleButtons.innerHTML = '';
         if (font.styles && font.styles.length > 0) {
             document.getElementById('styleControl').classList.remove('hidden');
             font.styles.forEach(s => {
-                const btn = createPill(s, () => {
-                    currentStyle = s;
-                    renderPreview();
-                });
+                const btn = createPill(s, () => { currentStyle = s; renderPreview(); });
                 if (s === currentStyle) btn.classList.add('active');
                 styleButtons.appendChild(btn);
             });
@@ -76,8 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return btn;
     }
 
-    // Global functions for buttons
-    // --- ระบบจัดการตะกร้า (ฉบับมีปุ่มลบ) ---
+    // --- ระบบจัดการตะกร้า ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -85,24 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     };
 
-    // ฟังก์ชันสำหรับลบสินค้าออกจากตะกร้า
     window.removeFromCart = function(index) {
-        cart.splice(index, 1); // ลบข้อมูลตามตำแหน่ง index
-        updateCartUI(); // อัปเดตหน้าจอใหม่
+        cart.splice(index, 1);
+        updateCartUI();
     };
 
     window.updateCartUI = function() {
         document.getElementById('cartCount').textContent = cart.length;
         const cartItems = document.getElementById('cartItems');
+        let total = 0;
         
         if (cart.length === 0) {
             cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
         } else {
             cartItems.innerHTML = '';
-            let total = 0;
             cart.forEach((item, index) => {
                 total += parseInt(item.price);
-                // เพิ่มปุ่มลบ (remove-btn) ตรงนี้ครับ
                 cartItems.innerHTML += `
                     <div class="flex justify-between items-center py-2 border-b border-pink-50 text-xs">
                         <div class="flex items-center gap-2">
@@ -112,27 +98,52 @@ document.addEventListener('DOMContentLoaded', () => {
                         <b>${item.price}</b>
                     </div>`;
             });
-            document.getElementById('totalPrice').textContent = total + ".-";
         }
+        document.getElementById('totalPrice').textContent = total + ".-";
     };
 
+    // --- ระบบ Checkout & Receipt ---
+    window.goToCheckout = function() {
+        if (cart.length === 0) return alert("เลือกฟอนต์ก่อนน้าา ♡");
+        const receiptList = document.getElementById('receiptList');
+        receiptList.innerHTML = '';
+        cart.forEach(item => {
+            receiptList.innerHTML += `<div class="flex justify-between text-xs"><span>• ${item.name}</span><span>${item.price}</span></div>`;
+        });
+        document.getElementById('cartModal').classList.add('hidden');
+        document.getElementById('checkoutPage').classList.remove('hidden');
+    };
+
+    window.copyAndLine = function() {
+        const email = document.getElementById('userEmail').value;
+        if (!email) return alert("กรุณากรอก Email ด้วยน้าา ♡");
+
+        let total = 0;
+        let fontNames = cart.map(item => {
+            total += parseInt(item.price);
+            return item.name;
+        }).join(', ');
+
+        const textToCopy = `[ สั่งซื้อฟอนต์ GRP House ]\nรายการ: ${fontNames}\nยอดรวม: ${total}.-\nอีเมล: ${email}`;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert("คัดลอกรายละเอียดแล้ว! เตรียมแจ้งใน LINE ได้เลย");
+            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); // แก้ @yourlineid เป็นขององุ่นนะ
+        });
+    };
+
+    window.closeCheckout = () => document.getElementById('checkoutPage').classList.add('hidden');
     window.openCart = () => document.getElementById('cartModal').classList.remove('hidden');
     window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
 
     // Init
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
-        opt.value = index;
-        opt.textContent = font.name;
+        opt.value = index; opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => {
-        currentWeight = "ปกติ";
-        currentStyle = "ปกติ";
-        updateControls();
-    };
-    
+    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
     document.getElementById('fontSize').oninput = (e) => {
         displayText.style.fontSize = e.target.value + 'px';
         document.getElementById('sizeValue').textContent = e.target.value + 'px';
