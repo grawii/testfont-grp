@@ -74,18 +74,20 @@
 /* --- ชุดคำสั่งบังคับแสดงผล 3D --- */
 
 /* --- ประกาศตัว 3D ให้ชัดเจน --- */
+/* --- ประกาศตัว 3D ให้ชัดเจน --- */
 @font-face {
-    font-family: 'grp09-3d-force'; 
+    font-family: 'grp09-3d-file'; 
     src: url('fonts/GRP-Pocky-3D.woff2') format('woff2');
-    /* ใส่ช่วงน้ำหนักไว้ให้ครอบคลุม */
+    /* ใส่ช่วงน้ำหนักไว้ให้ครอบคลุม ไม่ว่ากดปุ่มไหน 3D ก็จะติด */
     font-weight: 100 900; 
     font-style: normal;
 }
 
 /* ลักษณะฟอนต์แบบโปร่ง (Outline) */
+/* ลักษณะฟอนต์แบบโปร่ง (Outline) */
 .font-outline {
     color: transparent !important;
-    -webkit-text-stroke: 1px #8c5a65; /* ความหนาเส้นขอบ ปรับเลข 1px ได้ตามชอบครับ */
+    -webkit-text-stroke: 1px #8c5a65 !important;
 }
 
 /* สร้าง Class สำหรับเรียกใช้ */
@@ -93,10 +95,13 @@
 /* บังคับใช้ฟอนต์ 3D เมื่อมีคลาส .font-3d */
 /* คลาสที่ใช้เรียก ต้องชนะทุกกฎ */
 /* แก้ไขคลาส .font-3d ให้กลายเป็นตัวโปร่งแทน */
+/* คลาสสำหรับฟอนต์ 3D (บังคับเปลี่ยน Font Family) */
 .font-3d {
-    color: transparent !important;
-    -webkit-text-stroke: 1.5px #8c5a65 !important; /* ปรับความหนาเส้นขอบตามชอบ (เช่น 1px หรือ 1.5px) */
+    font-family: 'grp09-3d-file' !important;
+    color: #8c5a65 !important; /* บังคับสีปกติ ไม่ให้โปร่ง */
+    -webkit-text-stroke: 0px !important; /* ปิดเส้นขอบถ้ามี */
 }
+
 
 :root {
     --primary-bg: #fffcfd; /* สีขาวอมชมพูอ่อนมากๆ */
