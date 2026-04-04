@@ -126,15 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // จัดการ Style (Outline / 3D)
+        // จัดการลักษณะ (Style)
         if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
+            
             font.styles.forEach(s => {
+                // ถ้าใน products.js เขียนว่า "3D" ให้ปุ่มโชว์คำว่า "3D"
                 let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
+                
                 const btn = createPill(label, () => {
+                    // ล้างคลาสเก่าออกก่อน
                     displayText.classList.remove('font-outline', 'font-3d');
-                    if(s === 'outline') displayText.classList.add('font-outline');
-                    if(s === '3D') displayText.classList.add('font-3d');
+                    
+                    if(s === 'outline') {
+                        displayText.classList.add('font-outline');
+                    } else if(s === '3D') {
+                        // เมื่อกดปุ่ม 3D ให้แอดคลาส .font-3d (ที่เราตั้งค่าให้มันโปร่งใน CSS)
+                        displayText.classList.add('font-3d');
+                    }
                 });
                 styleButtons.appendChild(btn);
             });
