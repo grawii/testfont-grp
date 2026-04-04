@@ -2,6 +2,9 @@
 #displayText {
     font-weight: normal !important;
     font-style: normal !important;
+    font-size: 60px; /* เพิ่มบรรทัดนี้ หรือแก้จากของเดิมครับ */
+    line-height: 1.2;
+    transition: font-size 0.2s ease; /* แถม: ทำให้เวลาเลื่อนแถบปรับขนาดแล้วมันสมูทขึ้น */
 }
 
 /* --- มนตรา --- */
