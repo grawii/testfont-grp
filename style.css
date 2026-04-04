@@ -1,10 +1,10 @@
-/* ล็อคการแสดงผลหน้าเว็บ */
+/* ล็อคการแสดงผล */
 #displayText {
     font-weight: normal !important;
     font-style: normal !important;
 }
 
-/* --- มนตรา (ชื่อต้องตรงกับ Mapping ใน JS) --- */
+/* --- มนตรา --- */
 @font-face { font-family: 'mantra-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
 @font-face { font-family: 'mantra-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
 @font-face { font-family: 'mantra-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
@@ -21,7 +21,6 @@
 @font-face { font-family: 'pocky-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
 @font-face { font-family: 'pocky-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
 @font-face { font-family: 'pocky-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-/* ป๊อกกี้ 3D */
 @font-face { font-family: 'pocky-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
 
 /* คลาสพิเศษ */
@@ -30,74 +29,15 @@
     -webkit-text-stroke: 1.2px #8c5a65 !important;
 }
 
-:root {
-    --primary-bg: #fffcfd;
-    --box-bg: #ffffff;
-    --pink-accent: #ffccd5;
-    --text-dark: #8c5a65;
-}
-
-body {
-    background-color: var(--primary-bg);
-    color: var(--text-dark);
-    background-image: radial-gradient(rgba(255, 204, 213, 0.5) 1px, transparent 1px);
-    background-size: 24px 24px;
-}
-
-.soft-window {
-    background: var(--box-bg);
-    border: 2px solid #ffdce3;
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 25px rgba(255, 204, 213, 0.25);
-    overflow: hidden;
-}
-
-.window-header {
-    background: linear-gradient(to right, #fff0f3, #ffffff);
-    padding: 0.75rem 1.5rem;
-    border-bottom: 2px solid #ffdce3;
-    display: flex;
-    align-items: center;
-}
-
-.dot { width: 10px; height: 10px; border-radius: 50%; }
+/* UI Styles (ส่วนเดิมขององุ่น) */
+:root { --primary-bg: #fffcfd; --text-dark: #8c5a65; --pink-accent: #ffccd5; }
+body { background-color: var(--primary-bg); color: var(--text-dark); }
+.soft-window { background: white; border: 2px solid #ffdce3; border-radius: 1.5rem; overflow: hidden; }
+.window-header { background: #fff0f3; padding: 0.75rem 1.5rem; border-bottom: 2px solid #ffdce3; display: flex; align-items: center; }
+.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
 .dot-1 { background: #ffb5c6; }
 .dot-2 { background: #ffcdb2; }
-.dot-3 { background: #ffffff; border: 1.5px solid #ffdce3; }
-
-.pill-btn {
-    background: #fff0f3;
-    color: var(--text-dark);
-    padding: 6px 18px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: bold;
-    border: 1.5px solid transparent;
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-.pill-btn.active {
-    background: var(--pink-accent);
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 181, 198, 0.4);
-}
-
-.contact-btn {
-    background: var(--pink-accent);
-    color: white !important;
-    border-radius: 999px;
-    padding: 1rem 2rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    border: none;
-    box-shadow: 0 5px 15px rgba(255, 181, 198, 0.4);
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-@keyframes pop {
-    0% { transform: scale(0.9); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-.animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.dot-3 { background: #ffffff; border: 1px solid #ffdce3; }
+.pill-btn { background: #fff0f3; padding: 6px 18px; border-radius: 999px; font-size: 12px; cursor: pointer; transition: 0.2s; }
+.pill-btn.active { background: var(--pink-accent); color: white; }
+.contact-btn { background: var(--pink-accent); color: white; border-radius: 999px; padding: 1rem; font-weight: 900; width: 100%; transition: 0.3s; }
