@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         navigator.clipboard.writeText(textToCopy).then(() => {
             alert("คัดลอกรายละเอียดแล้ว! เตรียมแจ้งใน LINE ได้เลย");
-            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); // แก้ @yourlineid เป็นขององุ่นนะ
+            window.open('https://line.me/R/ti/p/@309ranuu', '_blank'); 
         });
     };
 
