@@ -118,15 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontWeight = '400';
         }
 
+        // จัดการลักษณะ (Style)
         if (font.features.includes('style')) {
             styleControl.classList.remove('hidden');
             styleButtons.innerHTML = '';
             font.styles.forEach(s => {
                 let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
                 const btn = createPill(label, () => {
+                    // ล้างคลาสลักษณะเก่าออกก่อน
                     displayText.classList.remove('font-outline', 'font-3d');
-                    if(s === 'outline') displayText.classList.add('font-outline');
-                    if(s === '3D') displayText.classList.add('font-3d');
+                    
+                    if(s === 'outline') {
+                        displayText.classList.add('font-outline');
+                    } else if(s === '3D') {
+                        // เมื่อกดปุ่ม 3D ให้แอดคลาส .font-3d (3d ตัวเล็ก)
+                        displayText.classList.add('font-3d');
+                    }
                 });
                 styleButtons.appendChild(btn);
             });
