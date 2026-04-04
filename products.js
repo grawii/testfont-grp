@@ -1,31 +1,45 @@
 const fontList = [
     { 
         name: "มนตรา (GRP Mantra)", 
-        family: "grp01", 
         price: "89.-",
-        features: ["weight"], // มีแค่ปรับน้ำหนัก
-        weights: ["100", "400", "700"] 
+        mapping: {
+            "บาง": "grp01-thin",
+            "ปกติ": "grp01-reg",
+            "หนา": "grp01-bold"
+        },
+        weights: ["บาง", "ปกติ", "หนา"],
+        styles: [] // ไม่มีสไตล์พิเศษ
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
-        family: "grp02", 
         price: "129.-",
-        features: ["weight"], // มีแค่ปรับโปร่ง/ปกติ
-        weights: ["100", "400", "700"] 
+        mapping: {
+            "บาง": "grp02-thin",
+            "ปกติ": "grp02-reg",
+            "หนา": "grp02-bold"
+        },
+        weights: ["บาง", "ปกติ", "หนา"],
+        styles: [] 
     },
     { 
         name: "พัฟฟี่ป็อป (GRP PuffyPop)", 
-        family: "grp03", 
         price: "69.-",
-        features: ["style"], // มีทั้งสองอย่าง
-        styles: ["normal", "outline"]
+        mapping: {
+            "ปกติ": "grp03-reg"
+        },
+        weights: ["ปกติ"],
+        styles: ["ปกติ", "โปร่ง"]
     },
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
-        family: "grp09", 
         price: "89.-",
-        features: ["weight", "style"], // มีทั้งสองอย่าง
-        weights: ["100", "400", "700"],
-        styles: ["normal", "3D"]
+        mapping: {
+            "บาง": "grp09-thin",
+            "ปกติ": "grp09-reg",
+            "หนา": "grp09-bold",
+            "3D": "grp09-3d"
+        },
+        weights: ["บาง", "ปกติ", "หนา"],
+        styles: ["ปกติ", "3D"]
     }
 ];
