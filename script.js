@@ -152,5 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความ";
     };
 
+    // เพิ่ม 2 บรรทัดนี้ก่อนบรรทัดสุดท้ายครับ
+document.getElementById('fontSize').value = 60; // ปรับตัวเลขตรงนี้ได้ตามชอบ (เช่น 60 หรือ 80)
+document.getElementById('displayText').style.fontSize = '60px';
+
     updateControls();
+    
 });
