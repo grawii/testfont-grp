@@ -1,138 +1,55 @@
-/* ใส่ตรงนี้เพื่อล็อคให้แสดงผลตามไฟล์จริง 100% */
+/* ล็อคการแสดงผลเบื้องต้น */
 #displayText {
-    font-family: 'grp01', sans-serif;
+    font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-synthesis: none; /* สำคัญมาก: ห้าม Browser ปรับความหนาเอง */
+    font-synthesis: none;
 }
 
-/* -----------------------------------------
-   ประกาศ Font-face แยกตามน้ำหนัก (ตัวอย่างฟอนต์ชุดที่ 1)
-   ----------------------------------------- */
+/* --- มนตรา --- */
+@font-face { font-family: 'grp01-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
+@font-face { font-family: 'grp01-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
+@font-face { font-family: 'grp01-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
 
-/* ตัวปกติ (Regular) */
-@font-face {
-    font-family: 'grp01';
-    src: url('fonts/GRPMantra.woff2') format('woff2');
-    font-weight: 400;
-}
+/* --- ไฮสคูล --- */
+@font-face { font-family: 'grp02-reg';  src: url('fonts/GRPHighSchool.woff2') format('woff2'); }
+@font-face { font-family: 'grp02-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
+@font-face { font-family: 'grp02-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
 
-/* ตัวหนา (Bold) */
-@font-face {
-    font-family: 'grp01';
-    src: url('fonts/GRPMantrabold.woff2') format('woff2');
-    font-weight: 700;
-}
+/* --- ป๊อกกี้ --- */
+@font-face { font-family: 'grp09-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
+@font-face { font-family: 'grp09-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'grp09-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
+/* ตัว 3D ใช้ไฟล์ที่องุ่นส่งมา */
+@font-face { font-family: 'grp09-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
 
-/* ตัวบาง (Thin) - ใช้เลข 100 เพื่อความต่างที่ชัดเจน */
-@font-face {
-    font-family: 'grp01';
-    src: url('fonts/GRPMantrathin.woff2') format('woff2');
-    font-weight: 100;
-}
-
-@font-face {
-    font-family: 'grp02'; /* ชื่อที่เราจะเรียกใช้ */
-    src: url('fonts/GRPHighSchool.woff2') format('woff2');
-    font-weight: 400;
-}
-
-/* สำหรับตัวหนา (ถ้ามีไฟล์แยก) */
-@font-face {
-    font-family: 'grp02'; 
-    src: url('fonts/GRPHighSchoolbold.woff2') format('woff2');
-    font-weight: 700;
-}
-
-/* สำหรับตัวบาง (ถ้ามีไฟล์แยก) */
-@font-face {
-    font-family: 'grp02'; 
-    src: url('fonts/GRPHighSchoolthin.woff2') format('woff2');
-    font-weight: 100;
-}
-
-@font-face {
-    font-family: 'grp09';
-    src: url('fonts/GRP-Pocky.woff2') format('woff2');
-    font-weight: 400;
-}
-
-/* ตัวหนา (Bold) */
-@font-face {
-    font-family: 'grp09';
-    src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2');
-    font-weight: 700;
-}
-
-/* ตัวบาง (Thin) - ใช้เลข 100 เพื่อความต่างที่ชัดเจน */
-@font-face {
-    font-family: 'grp09';
-    src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2');
-    font-weight: 100;
-}
-
-/* --- ชุดคำสั่งบังคับแสดงผล 3D --- */
-
-/* --- ประกาศตัว 3D ให้ชัดเจน --- */
-/* --- ประกาศตัว 3D ให้ชัดเจน --- */
-/* --- ตัว 3D เจ้าปัญหา --- */
-@font-face {
-    font-family: 'grp09-3d-force'; 
-    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); /* เติม fonts/ ให้ตรงกับ Folder */
-    font-weight: 100 900; 
-    font-style: normal;
-}
-
-/* ลักษณะฟอนต์แบบโปร่ง (Outline) */
-/* ลักษณะฟอนต์แบบโปร่ง (Outline) */
-.font-outline {
+/* --- คลาสพิเศษ --- */
+.font-outline-mode {
     color: transparent !important;
-    -webkit-text-stroke: 1px #8c5a65 !important;
+    -webkit-text-stroke: 1.2px #8c5a65 !important;
 }
-
-/* --- ประกาศตัว 3D --- */
-@font-face {
-    font-family: 'GRPPocky3D'; /* ใช้ชื่อนี้เป็นชื่อหลัก */
-    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); 
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* คลาสที่ JavaScript จะเรียกใช้ */
-.font-3d {
-    font-family: 'GRPPocky3D' !important; /* ต้องสะกดเหมือนข้างบนเป๊ะ */
-    color: #8c5a65 !important;
-    -webkit-text-stroke: 0px !important;
-    font-weight: normal !important;
-}
-
 
 :root {
-    --primary-bg: #fffcfd; /* สีขาวอมชมพูอ่อนมากๆ */
+    --primary-bg: #fffcfd;
     --box-bg: #ffffff;
-    --pink-accent: #ffccd5; /* สีชมพูพาสเทลละมุน */
-    --peach-light: #fff0f3; /* สีพีชอ่อน */
-    --text-dark: #8c5a65; /* สีนํ้าตาลอมแดง */
+    --pink-accent: #ffccd5;
+    --text-dark: #8c5a65;
 }
 
 body {
     background-color: var(--primary-bg);
     color: var(--text-dark);
-    /* ลาย Dot Polka Dot จางๆ ทั่วเว็บ */
     background-image: radial-gradient(rgba(255, 204, 213, 0.5) 1px, transparent 1px);
     background-size: 24px 24px;
 }
 
-/* หน้าต่างแบบ Soft Window (โค้งมนและมีเงาแบบฟุ้ง) */
 .soft-window {
     background: var(--box-bg);
-    border: 2px solid #ffdce3; /* เส้นขอบบางๆ สีชมพูอ่อน */
-    border-radius: 1.5rem; /* โค้งมนนุ่มนวล */
-    box-shadow: 0 10px 25px rgba(255, 204, 213, 0.25); /* เงาแบบ Soft Glow */
+    border: 2px solid #ffdce3;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px rgba(255, 204, 213, 0.25);
     overflow: hidden;
 }
 
-/* แถบหัวหน้าต่างแบบไล่ระดับสีจางๆ */
 .window-header {
     background: linear-gradient(to right, #fff0f3, #ffffff);
     padding: 0.75rem 1.5rem;
@@ -141,32 +58,29 @@ body {
     align-items: center;
 }
 
-/* ปุ่มจุดสี 3 จุดสไตล์ Soft Window */
 .dot { width: 10px; height: 10px; border-radius: 50%; }
 .dot-1 { background: #ffb5c6; }
 .dot-2 { background: #ffcdb2; }
 .dot-3 { background: #ffffff; border: 1.5px solid #ffdce3; }
 
-/* ปุ่มเลือกน้ำหนักแบบเม็ดแคปซูลมนๆ (Pill Buttons) */
 .pill-btn {
     background: #fff0f3;
     color: var(--text-dark);
     padding: 6px 18px;
-    border-radius: 999px; /* โค้งมนแบบแคปซูล */
+    border-radius: 999px;
     font-size: 12px;
     font-weight: bold;
     border: 1.5px solid transparent;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .pill-btn.active {
     background: var(--pink-accent);
     color: white;
-    border-color: #ffffff;
     box-shadow: 0 4px 10px rgba(255, 181, 198, 0.4);
 }
 
-/* ปุ่มสั่งซื้อแบบมีออร่า (Glowing Button) */
 .contact-btn {
     background: var(--pink-accent);
     color: white !important;
@@ -174,21 +88,10 @@ body {
     padding: 1rem 2rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
     border: none;
     box-shadow: 0 5px 15px rgba(255, 181, 198, 0.4);
     transition: 0.3s;
-}
-.contact-btn:hover {
-    background: #ffb5c6;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 181, 198, 0.5);
-}
-
-/* เอฟเฟกต์ฟอนต์โปร่ง (ขอบบางลง) */
-.font-outline {
-    color: transparent !important;
-    -webkit-text-stroke: 1px var(--text-dark);
+    cursor: pointer;
 }
 
 @keyframes pop {
@@ -196,6 +99,3 @@ body {
     100% { transform: scale(1); opacity: 1; }
 }
 .animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-/* ปรับสีปุ่ม x ในตะกร้า */
-button:hover { filter: brightness(0.95); }
