@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Global functions for buttons
+    // --- ระบบจัดการตะกร้า (ฉบับมีปุ่มลบ) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -84,16 +85,35 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
     };
 
+    // ฟังก์ชันสำหรับลบสินค้าออกจากตะกร้า
+    window.removeFromCart = function(index) {
+        cart.splice(index, 1); // ลบข้อมูลตามตำแหน่ง index
+        updateCartUI(); // อัปเดตหน้าจอใหม่
+    };
+
     window.updateCartUI = function() {
         document.getElementById('cartCount').textContent = cart.length;
         const cartItems = document.getElementById('cartItems');
-        cartItems.innerHTML = cart.length ? '' : '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
-        let total = 0;
-        cart.forEach(item => {
-            total += parseInt(item.price);
-            cartItems.innerHTML += `<div class="flex justify-between py-2 border-b border-pink-50 text-xs"><span>${item.name}</span><b>${item.price}</b></div>`;
-        });
-        document.getElementById('totalPrice').textContent = total + ".-";
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
+        } else {
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += parseInt(item.price);
+                // เพิ่มปุ่มลบ (remove-btn) ตรงนี้ครับ
+                cartItems.innerHTML += `
+                    <div class="flex justify-between items-center py-2 border-b border-pink-50 text-xs">
+                        <div class="flex items-center gap-2">
+                            <button onclick="removeFromCart(${index})" class="remove-btn">×</button>
+                            <span>${item.name}</span>
+                        </div>
+                        <b>${item.price}</b>
+                    </div>`;
+            });
+            document.getElementById('totalPrice').textContent = total + ".-";
+        }
     };
 
     window.openCart = () => document.getElementById('cartModal').classList.remove('hidden');
