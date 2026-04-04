@@ -37,7 +37,7 @@ const fontList = [
             "บาง": "pocky-thin",
             "ปกติ": "pocky-reg",
             "หนา": "pocky-bold",
-            "3D": "pocky-3d"
+            "3D": "fonts/GRP-Pocky-3D.woff2"
         },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
