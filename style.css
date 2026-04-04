@@ -1,28 +1,22 @@
-/* ล็อคการแสดงผลเบื้องต้น */
+/* ล็อคการแสดงผลหน้าเว็บให้ใช้ฟอนต์ที่เราสั่งเท่านั้น */
 #displayText {
-    font-family: sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-synthesis: none;
+    font-weight: normal !important; /* ห้าม Browser ปรับความหนาเอง */
+    font-style: normal !important;
 }
 
 /* --- มนตรา --- */
-@font-face { font-family: 'grp01-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
-@font-face { font-family: 'grp01-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
-@font-face { font-family: 'grp01-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
-
-/* --- ไฮสคูล --- */
-@font-face { font-family: 'grp02-reg';  src: url('fonts/GRPHighSchool.woff2') format('woff2'); }
-@font-face { font-family: 'grp02-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
-@font-face { font-family: 'grp02-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
+@font-face { font-family: 'mantra-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
+@font-face { font-family: 'mantra-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
+@font-face { font-family: 'mantra-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
 
 /* --- ป๊อกกี้ --- */
-@font-face { font-family: 'grp09-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
-@font-face { font-family: 'grp09-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'grp09-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-/* ตัว 3D ใช้ไฟล์ที่องุ่นส่งมา */
-@font-face { font-family: 'grp09-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
+@font-face { font-family: 'pocky-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
+@font-face { font-family: 'pocky-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'pocky-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
+/* ตัว 3D เรียกจากไฟล์โดยตรง */
+@font-face { font-family: 'pocky-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
 
-/* --- คลาสพิเศษ --- */
+/* คลาสพิเศษสำหรับตัวโปร่ง (Outline) ที่ใช้ CSS ช่วยวาด */
 .font-outline-mode {
     color: transparent !important;
     -webkit-text-stroke: 1.2px #8c5a65 !important;
