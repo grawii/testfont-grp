@@ -44,24 +44,12 @@ body { background-color: var(--primary-bg); color: var(--text-dark); }
 
 /* ปุ่มกากบาทลบสินค้าในตะกร้า */
 .remove-btn {
-    width: 18px;
-    height: 18px;
-    background: #ffe5ec;
-    color: #ff8fa3;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-    border: none;
-    line-height: 1;
+    width: 18px; height: 18px;
+    background: #ffe5ec; color: #ff8fa3;
+    border-radius: 50%; border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: bold; cursor: pointer;
+    transition: 0.2s; line-height: 1;
 }
-
-.remove-btn:hover {
-    background: #ff8fa3;
-    color: white;
-    transform: scale(1.1);
-}
+.remove-btn:hover { background: #ff8fa3; color: white; transform: scale(1.1); }
+.animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
