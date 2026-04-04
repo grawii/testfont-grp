@@ -3,12 +3,12 @@ const fontList = [
         name: "มนตรา (GRP Mantra)", 
         price: "89.-",
         mapping: {
-            "บาง": "grp01-thin",
-            "ปกติ": "grp01-reg",
-            "หนา": "grp01-bold"
+            "บาง": "mantra-thin",
+            "ปกติ": "mantra-reg",
+            "หนา": "mantra-bold"
         },
         weights: ["บาง", "ปกติ", "หนา"],
-        styles: [] // ไม่มีสไตล์พิเศษ
+        styles: ["ปกติ", "โปร่ง"]
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
@@ -19,7 +19,7 @@ const fontList = [
             "หนา": "grp02-bold"
         },
         weights: ["บาง", "ปกติ", "หนา"],
-        styles: [] 
+        styles: ["ปกติ", "โปร่ง"] 
     },
     { 
         name: "พัฟฟี่ป็อป (GRP PuffyPop)", 
@@ -33,7 +33,6 @@ const fontList = [
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
         price: "89.-",
-        // หมวดกลวงๆ ที่ระบุชื่อฟอนต์จาก CSS ไว้
         mapping: {
             "บาง": "pocky-thin",
             "ปกติ": "pocky-reg",
@@ -43,5 +42,4 @@ const fontList = [
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
     }
-    // ฟอนต์อื่นๆ ก็ทำ mapping แบบเดียวกันครับ
 ];
