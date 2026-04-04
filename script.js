@@ -1,94 +1,112 @@
 let cart = [];
+let currentWeight = "ปกติ";
+let currentStyle = "ปกติ";
 
 document.addEventListener('DOMContentLoaded', () => {
     const fontSelect = document.getElementById('fontSelect');
-    const weightControl = document.getElementById('weightControl');
-    const styleControl = document.getElementById('styleControl');
     const weightButtons = document.getElementById('weightButtons');
     const styleButtons = document.getElementById('styleButtons');
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
-    const buyBtn = document.querySelector('.contact-btn');
 
-    // --- 1. ฟังก์ชันจัดการตะกร้า ---
-    window.updateCartUI = function() {
-        const cartCount = document.getElementById('cartCount');
-        const cartItems = document.getElementById('cartItems');
-        const totalPrice = document.getElementById('totalPrice');
-        const receiptList = document.getElementById('receiptList');
-        
-        if(cartCount) cartCount.textContent = cart.length;
-        if(cartItems) cartItems.innerHTML = '';
-        
-        let total = 0;
-        cart.forEach((item, index) => {
-            const priceNum = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
-            total += priceNum;
-            if(cartItems) {
-                cartItems.innerHTML += `
-                    <div class="flex justify-between items-center text-[#8c5a65] py-2 border-b border-pink-50">
-                        <div class="flex items-center gap-2 text-xs font-bold">
-                            <button onclick="removeFromCart(${index})" class="w-5 h-5 flex items-center justify-center rounded-full bg-pink-100 text-[#ff9eaa]">✕</button>
-                            <span>${item.name}</span>
-                        </div>
-                        <span class="font-bold text-xs">${item.price}</span>
-                    </div>
-                `;
-            }
-        });
+    // 1. ฟังก์ชัน Render ข้อความตามปุ่มที่เลือก
+    function renderPreview() {
+        const font = fontList[fontSelect.value];
+        displayText.classList.remove('font-outline-mode');
+        displayText.style.fontWeight = "normal"; // ปิดระบบคำนวณของ Browser
 
-        if(cart.length === 0 && cartItems) {
-            cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
+        // ถ้าเลือก 3D ให้ใช้ Font Family สำหรับ 3D โดยเฉพาะ
+        if (currentStyle === "3D") {
+            displayText.style.fontFamily = font.mapping["3D"];
+        } 
+        // ถ้าเลือก โปร่ง ให้ใช้ Font ของน้ำหนักปัจจุบันแต่ใส่ CSS Outline
+        else if (currentStyle === "โปร่ง") {
+            displayText.style.fontFamily = font.mapping[currentWeight];
+            displayText.classList.add('font-outline-mode');
+        } 
+        // กรณีปกติ
+        else {
+            displayText.style.fontFamily = font.mapping[currentWeight];
         }
-        if(totalPrice) totalPrice.textContent = total + ".-";
-        if(receiptList) {
-            receiptList.innerHTML = cart.map(item => `
-                <div class="flex justify-between text-sm py-1"><span>${item.name}</span> <span>${item.price}</span></div>
-            `).join('') + `<div class="flex justify-between font-black mt-4 text-lg border-t-2 border-pink-100 pt-2 text-[#8c5a65]"><span>รวมยอดทั้งหมด</span> <span>${total}.-</span></div>`;
-        }
-    };
+    }
 
+    // 2. ฟังก์ชันอัปเดตปุ่มควบคุม
+    function updateControls() {
+        const font = fontList[fontSelect.value];
+        priceLabel.textContent = font.price;
+
+        // สร้างปุ่มน้ำหนัก
+        weightButtons.innerHTML = '';
+        if (font.weights && font.weights.length > 0) {
+            document.getElementById('weightControl').classList.remove('hidden');
+            font.weights.forEach(w => {
+                const btn = createPill(w, () => {
+                    currentWeight = w;
+                    renderPreview();
+                });
+                if (w === "ปกติ") btn.classList.add('active');
+                weightButtons.appendChild(btn);
+            });
+            currentWeight = "ปกติ";
+        } else {
+            document.getElementById('weightControl').classList.add('hidden');
+        }
+
+        // สร้างปุ่มลักษณะ
+        styleButtons.innerHTML = '';
+        if (font.styles && font.styles.length > 0) {
+            document.getElementById('styleControl').classList.remove('hidden');
+            font.styles.forEach(s => {
+                const btn = createPill(s, () => {
+                    currentStyle = s;
+                    renderPreview();
+                });
+                if (s === "ปกติ") btn.classList.add('active');
+                styleButtons.appendChild(btn);
+            });
+            currentStyle = "ปกติ";
+        } else {
+            document.getElementById('styleControl').classList.add('hidden');
+        }
+
+        renderPreview();
+    }
+
+    // ฟังก์ชันสร้างปุ่มเม็ดยา
+    function createPill(text, callback) {
+        const btn = document.createElement('button');
+        btn.className = 'pill-btn';
+        btn.textContent = text;
+        btn.onclick = (e) => {
+            const container = e.target.parentElement;
+            container.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            callback();
+        };
+        return btn;
+    }
+
+    // --- ระบบอื่นๆ (ตะกร้า/ซื้อ) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
-        if (cart.some(item => item.name === font.name)) {
-            alert("มีฟอนต์นี้ในตะกร้าแล้วน้าา ♡");
-            return;
-        }
+        if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
         cart.push({ name: font.name, price: font.price });
         updateCartUI();
     };
 
-    window.removeFromCart = function(index) {
-        cart.splice(index, 1);
-        updateCartUI();
-    };
-
-    window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
-    window.goToCheckout = () => {
-        if(cart.length === 0) return alert("เลือกฟอนต์ใส่ตะกร้าก่อนน้าา ♡");
-        document.getElementById('checkoutPage').classList.remove('hidden');
-    };
-    window.closeCheckout = () => document.getElementById('checkoutPage').classList.add('hidden');
-
-    window.copyAndLine = function() {
-        const email = document.getElementById('userEmail').value;
-        if(!email) return alert("องุ่นขออีเมลสำหรับส่งไฟล์หน่อยน้าา");
-        let text = "🛒 รายการสั่งซื้อ GRP House\n--------------------------\n";
-        cart.forEach((item, i) => text += `${i+1}. ${item.name} (${item.price})\n`);
-        text += "--------------------------\n";
-        text += `ยอดรวมทั้งหมด: ${document.getElementById('totalPrice').textContent}\n`;
-        text += `อีเมลลูกค้า: ${email}\n\n`;
-        navigator.clipboard.writeText(text).then(() => {
-            alert("คัดลอกใบเสร็จแล้วค่ะ! กำลังพาไปที่ Line นะคะ");
-            window.location.href = "https://line.me/ti/p/@309ranuu";
+    window.updateCartUI = function() {
+        document.getElementById('cartCount').textContent = cart.length;
+        const cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = cart.length ? '' : '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
+        let total = 0;
+        cart.forEach((item, index) => {
+            total += parseInt(item.price);
+            cartItems.innerHTML += `<div class="flex justify-between py-2 border-b border-pink-50 text-xs"><span>${item.name}</span><b>${item.price}</b></div>`;
         });
+        document.getElementById('totalPrice').textContent = total + ".-";
     };
 
-    const cartIcon = document.getElementById('cartIcon');
-    if (cartIcon) cartIcon.onclick = () => document.getElementById('cartModal').classList.remove('hidden');
-    if (buyBtn) buyBtn.onclick = (e) => { e.preventDefault(); addToCart(); };
-
-    // --- 2. ระบบ Font Tester ---
+    // เริ่มต้นระบบ
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index;
@@ -96,75 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
         fontSelect.appendChild(opt);
     });
 
-    function updateControls() {
-        const font = fontList[fontSelect.value];
-        displayText.style.fontFamily = font.family;
-        priceLabel.textContent = font.price;
-
-        if (font.features.includes('weight')) {
-            weightControl.classList.remove('hidden');
-            weightButtons.innerHTML = '';
-            let defaultBtn = null;
-            font.weights.forEach(w => {
-                let label = (w === "100") ? "บาง" : (w === "400" || w === "normal") ? "ปกติ" : (w === "700" || w === "bold") ? "หนา" : w;
-                const btn = createPill(label, () => displayText.style.fontWeight = w);
-                weightButtons.appendChild(btn);
-                if (w === "400" || w === "normal") defaultBtn = btn;
-            });
-            if (defaultBtn) defaultBtn.click();
-            else if (weightButtons.firstChild) weightButtons.firstChild.click();
-        } else {
-            weightControl.classList.add('hidden');
-            displayText.style.fontWeight = '400';
-        }
-
-        // จัดการลักษณะ (Style)
-        if (font.features.includes('style')) {
-            styleControl.classList.remove('hidden');
-            styleButtons.innerHTML = '';
-            font.styles.forEach(s => {
-                let label = (s === "outline") ? "โปร่ง" : (s === "3D") ? "3D" : "ปกติ";
-                const btn = createPill(label, () => {
-                    // ล้างคลาสลักษณะเก่าออกก่อน
-                    displayText.classList.remove('font-outline', 'font-3d');
-                    
-                    if(s === 'outline') {
-                        displayText.classList.add('font-outline');
-                    } else if(s === '3D') {
-                        // เมื่อกดปุ่ม 3D ให้แอดคลาส .font-3d (3d ตัวเล็ก)
-                        displayText.classList.add('font-3d');
-                    }
-                });
-                styleButtons.appendChild(btn);
-            });
-            styleButtons.firstChild.click();
-        } else {
-            styleControl.classList.add('hidden');
-            displayText.classList.remove('font-outline', 'font-3d');
-        }
-    }
-
-    function createPill(text, callback) {
-        const btn = document.createElement('button');
-        btn.className = 'pill-btn';
-        btn.textContent = text;
-        btn.onclick = () => {
-            btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            callback();
-        };
-        return btn;
-    }
-
     fontSelect.onchange = updateControls;
     document.getElementById('fontSize').oninput = (e) => {
-        const val = e.target.value + 'px';
-        displayText.style.fontSize = val;
-        document.getElementById('sizeValue').textContent = val;
+        displayText.style.fontSize = e.target.value + 'px';
+        document.getElementById('sizeValue').textContent = e.target.value + 'px';
     };
     document.getElementById('textInput').oninput = (e) => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความ";
     };
 
-    updateControls(); 
+    updateControls();
 });
