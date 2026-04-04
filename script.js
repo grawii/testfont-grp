@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // เพิ่ม 2 บรรทัดนี้ก่อนบรรทัดสุดท้ายครับ
-document.getElementById('fontSize').value = 60; // ปรับตัวเลขตรงนี้ได้ตามชอบ (เช่น 60 หรือ 80)
-document.getElementById('displayText').style.fontSize = '60px';
+document.getElementById('fontSize').value = 35; // ปรับตัวเลขตรงนี้ได้ตามชอบ (เช่น 60 หรือ 80)
+document.getElementById('displayText').style.fontSize = '35px';
 
     updateControls();
     
