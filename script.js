@@ -13,21 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const font = fontList[fontSelect.value];
         displayText.classList.remove('font-outline-mode');
         
-        let targetFamily = font.family;
-        let targetWeight = font.mapping[currentWeight] || "400";
+        let chosenFontFamily = "";
 
-        // Logic พิเศษสำหรับ 3D: บังคับเปลี่ยนชื่อตระกูลฟอนต์ไปที่ป้ายชื่อ 3D ที่เราตั้งไว้
+        // เลือกชื่อตระกูลฟอนต์ตามสไตล์ที่กด
         if (currentStyle === "3D" && font.mapping["3D"]) {
-            targetFamily = "pocky-3d-force";
-            targetWeight = "400";
-        } else if (currentStyle === "โปร่ง") {
-            displayText.classList.add('font-outline-mode');
+            chosenFontFamily = font.mapping["3D"];
+        } else {
+            chosenFontFamily = font.mapping[currentWeight] || font.mapping["ปกติ"];
+            if (currentStyle === "โปร่ง") displayText.classList.add('font-outline-mode');
         }
 
-        // บังคับเปลี่ยนสไตล์แบบ Inline เพื่อความชัวร์
-        if (targetFamily) {
-            displayText.style.setProperty('font-family', `'${targetFamily}', sans-serif`, 'important');
-            displayText.style.setProperty('font-weight', targetWeight, 'important');
+        // บังคับเปลี่ยนฟอนต์แบบรุนแรง (Inline CSS)
+        if (chosenFontFamily) {
+            displayText.style.setProperty('font-family', `'${chosenFontFamily}', sans-serif`, 'important');
+            
+            // เช็คสถานะการโหลดในเบื้องหลัง
+            document.fonts.load(`1em "${chosenFontFamily}"`).then(() => {
+                console.log(`Successfully loaded: ${chosenFontFamily}`);
+            }).catch(err => {
+                console.error(`Failed to load: ${chosenFontFamily}`, err);
+            });
         }
     }
 
@@ -70,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return btn;
     }
 
-    // --- ฟังก์ชันอื่นๆ ทั้งหมด (ห้ามตัดออก) ---
+    // --- ฟังก์ชันอื่นๆ ห้ามตัดออก ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -136,12 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
-    
     document.getElementById('fontSize').oninput = (e) => {
         displayText.style.fontSize = e.target.value + 'px';
         document.getElementById('sizeValue').textContent = e.target.value + 'px';
     };
-
     document.getElementById('textInput').oninput = (e) => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความน้าา ♡";
     };
