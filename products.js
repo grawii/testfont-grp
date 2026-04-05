@@ -3,9 +3,9 @@ const fontList = [
         name: "มนตรา (GRP Mantra)", 
         price: "89.-",
         mapping: {
-            "บาง": "grp01-thin",
-            "ปกติ": "grp01-reg",
-            "หนา": "grp01-bold"
+            "บาง": "mantra-thin",
+            "ปกติ": "mantra-reg",
+            "หนา": "mantra-bold"
         },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "โปร่ง"]
@@ -37,7 +37,7 @@ const fontList = [
             "บาง": "pocky-thin",
             "ปกติ": "pocky-reg",
             "หนา": "pocky-bold",
-            "3D": "fonts/GRP-Pocky-3D.woff2"
+            "3D": "pocky-3d"
         },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
