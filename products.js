@@ -30,14 +30,15 @@ const fontList = [
         weights: ["ปกติ"],
         styles: ["ปกติ", "โปร่ง"]
     },
+// แก้เฉพาะส่วนป๊อกกี้ให้ชื่อตรงกับ CSS ด้านบน
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
         price: "89.-",
         mapping: {
-            "บาง": "pocky-thin-file",
-            "ปกติ": "pocky-normal",
-            "หนา": "pocky-bold-file",
-            "3D": "pocky-3d-special" // ต้องตรงกับใน CSS เป๊ะๆ
+            "บาง": "PockyThin",
+            "ปกติ": "PockyReg",
+            "หนา": "PockyBold",
+            "3D": "Pocky3D"
         },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
