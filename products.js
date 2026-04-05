@@ -3,14 +3,14 @@ const fontList = [
         name: "มนตรา (GRP Mantra)", 
         price: "89.-",
         mapping: { "บาง": "GRPMantrathin", "ปกติ": "GRPMantra", "หนา": "GRPMantrabold" },
-        weights: ["บาง", "ปกติ", "หนา"]
+        weights: ["บาง", "ปกติ", "หนา"],
         styles: []
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
         price: "129.-",
         mapping: { "บาง": "GRPHighSchoolthin", "ปกติ": "GRPHighSchool", "หนา": "GRPHighSchoolbold" },
-        weights: ["บาง", "ปกติ", "หนา"]
+        weights: ["บาง", "ปกติ", "หนา"],
         styles: []
     },
     { 
