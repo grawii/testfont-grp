@@ -1,49 +1,44 @@
-/* --- 1. ตั้งค่าพื้นฐาน Preview --- */
+/* --- 1. เคลียร์ค่าพื้นฐานของตัวแสดงผล --- */
 #displayText {
     font-weight: 400 !important;
     font-style: normal !important;
-    transition: font-size 0.2s ease;
-    line-height: 1.2;
+    font-family: sans-serif; /* ฟอนต์สำรอง */
     display: block;
     width: 100%;
-    font-family: sans-serif;
+    line-height: 1.4;
+    min-height: 100px;
+    word-break: break-word;
 }
 
-/* --- 2. ประกาศ Font-Face (ใช้ป้ายชื่อ Alias เพื่อแยกไฟล์ออกจากกัน) --- */
+/* --- 2. ประกาศ Font-Face แบบแยกตระกูล (Alias) --- */
 
-/* ป๊อกกี้ (แยก 3D ออกจากกลุ่มปกติ) */
-@font-face { font-family: 'pocky-normal'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
-@font-face { font-family: 'pocky-normal'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); font-weight: bold; }
-@font-face { font-family: 'pocky-normal'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); font-weight: 100; }
-@font-face { 
-    font-family: 'pocky-3d-force'; 
-    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); 
-    font-weight: 400; 
-    font-style: normal; 
-}
+/* ป๊อกกี้ */
+@font-face { font-family: 'pocky-normal'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'pocky-bold';   src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'pocky-thin';   src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'pocky-3d-only'; src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); font-display: block; }
 
 /* มนตรา */
-@font-face { font-family: 'mantra-family'; src: url('fonts/GRPMantra.woff2') format('woff2'); }
-@font-face { font-family: 'mantra-family'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); font-weight: bold; }
-@font-face { font-family: 'mantra-family'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); font-weight: 100; }
+@font-face { font-family: 'mantra-normal'; src: url('fonts/GRPMantra.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'mantra-bold';   src: url('fonts/GRPMantrabold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'mantra-thin';   src: url('fonts/GRPMantrathin.woff2') format('woff2'); font-display: block; }
 
 /* ไฮสคูล */
-@font-face { font-family: 'hs-family'; src: url('fonts/GRPHighSchool.woff2') format('woff2'); }
-@font-face { font-family: 'hs-family'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); font-weight: bold; }
-@font-face { font-family: 'hs-family'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); font-weight: 100; }
+@font-face { font-family: 'hs-normal'; src: url('fonts/GRPHighSchool.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'hs-bold';   src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'hs-thin';   src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); font-display: block; }
 
 /* พัฟฟี่ป็อป */
-@font-face { font-family: 'puffy-family'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); }
+@font-face { font-family: 'puffy-normal'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); font-display: block; }
 
-/* --- 3. เอฟเฟกต์และ UI Styles ทั้งหมด --- */
+/* --- 3. UI Styles (ห้ามตัดออก) --- */
 .font-outline-mode {
     color: transparent !important;
     -webkit-text-stroke: 1.2px #8c5a65 !important;
 }
-
 :root { --primary-bg: #fffcfd; --text-dark: #8c5a65; --pink-accent: #ffccd5; }
-body { background-color: var(--primary-bg); color: var(--text-dark); font-family: sans-serif; }
-.soft-window { background: white; border: 2px solid #ffdce3; border-radius: 1.5rem; overflow: hidden; margin-bottom: 20px; }
+body { background-color: var(--primary-bg); color: var(--text-dark); margin: 0; padding: 0; }
+.soft-window { background: white; border: 2px solid #ffdce3; border-radius: 1.5rem; overflow: hidden; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(255, 204, 213, 0.2); }
 .window-header { background: #fff0f3; padding: 0.75rem 1.5rem; border-bottom: 2px solid #ffdce3; display: flex; align-items: center; justify-content: space-between; }
 .dot-group { display: flex; gap: 6px; }
 .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -52,5 +47,5 @@ body { background-color: var(--primary-bg); color: var(--text-dark); font-family
 .dot-3 { background: #ffffff; border: 1px solid #ffdce3; }
 .pill-btn { background: #fff0f3; padding: 6px 18px; border-radius: 999px; font-size: 12px; cursor: pointer; transition: 0.2s; border: none; color: #8c5a65; }
 .pill-btn.active { background: var(--pink-accent); color: white; }
-.contact-btn { background: var(--pink-accent); color: white; border-radius: 999px; padding: 1rem; font-weight: 900; width: 100%; transition: 0.3s; border: none; cursor: pointer; margin-top: 10px; }
+.contact-btn { background: var(--pink-accent); color: white; border-radius: 999px; padding: 1rem; font-weight: 900; width: 100%; border: none; cursor: pointer; margin-top: 10px; }
 .remove-btn { width: 18px; height: 18px; background: #ffe5ec; color: #ff8fa3; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; cursor: pointer; }
