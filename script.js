@@ -9,37 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
 
-    // --- ฟังก์ชันหลัก: ดึงฟอนต์มาใช้ตรงๆ ตามชื่อเรียกใน CSS ---
-    function renderPreview() {
-        const font = fontList[fontSelect.value];
-        
-        // 1. ล้างสถานะพิเศษ
-        displayText.classList.remove('font-outline-mode');
-        
-        // 2. ตัวแปรเก็บชื่อ Font Family ที่เลือก
-        let chosenFont = "";
+function renderPreview() {
+    const font = fontList[fontSelect.value];
+    const displayText = document.getElementById('displayText');
+    
+    displayText.classList.remove('font-outline-mode');
+    let chosenFont = "";
 
-        // 3. ตรวจสอบเงื่อนไขการดึงชื่อฟอนต์จาก Mapping (Direct Mapping)
-        if (currentStyle === "3D" && font.mapping["3D"]) {
-            chosenFont = font.mapping["3D"];
-        } 
-        else if (currentStyle === "โปร่ง") {
-            chosenFont = font.mapping[currentWeight];
-            displayText.classList.add('font-outline-mode');
-        } 
-        else {
-            // กรณีปกติ หรือสไตล์อื่นๆ ที่ต้องอิงตามน้ำหนัก
-            chosenFont = font.mapping[currentWeight];
-        }
-
-        // 4. สั่งเปลี่ยนฟอนต์ (ใส่ ' ' ครอบชื่อเพื่อให้ Browser อ่านค่าได้แม่นยำ)
-        if (chosenFont) {
-            displayText.style.fontFamily = `'${chosenFont}', sans-serif`;
-        }
-        
-        // 5. บังคับให้น้ำหนักเป็น Normal เพื่อใช้หน้าตาจากไฟล์ฟอนต์โดยตรง
-        displayText.style.fontWeight = "normal";
+    // บังคับเช็ค 3D ก่อนเงื่อนไขอื่น
+    if (currentStyle === "3D") {
+        chosenFont = font.mapping["3D"];
+    } else if (currentStyle === "โปร่ง") {
+        chosenFont = font.mapping[currentWeight];
+        displayText.classList.add('font-outline-mode');
+    } else {
+        chosenFont = font.mapping[currentWeight];
     }
+
+    // ดูใน Console (F12) ว่ามันขึ้นชื่อที่เราตั้งไว้ไหม
+    console.log("Current Font:", chosenFont);
+
+    if (chosenFont) {
+        // ใส่ !important ทับลงไปใน inline-style เลย
+        displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
+    }
+    
+    displayText.style.fontWeight = "normal";
+}
 
     function updateControls() {
         const font = fontList[fontSelect.value];
