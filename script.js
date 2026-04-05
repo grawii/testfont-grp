@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderPreview() {
         const font = fontList[fontSelect.value];
+        if (!font) return;
+
         displayText.classList.remove('font-outline-mode');
         
         let chosenFontFamily = "";
@@ -20,16 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
             chosenFontFamily = font.mapping["3D"];
         } else {
             chosenFontFamily = font.mapping[currentWeight] || font.mapping["ปกติ"];
-            if (currentStyle === "โปร่ง") displayText.classList.add('font-outline-mode');
+            if (currentStyle === "โปร่ง") {
+                displayText.classList.add('font-outline-mode');
+            }
         }
 
-        // บังคับเปลี่ยนฟอนต์แบบรุนแรง (Inline CSS)
-        // ในฟังก์ชัน renderPreview
-if (chosenFont) {
-    // ใช้ `${chosenFont}` โดยมี ' ' ครอบข้างนอกอีกที
-    displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
-}
-            // เช็คสถานะการโหลดในเบื้องหลัง
+        // บังคับเปลี่ยนฟอนต์ (Inline CSS)
+        if (chosenFontFamily) {
+            // ใส่ ' ครอบชื่อฟอนต์เผื่อกรณีมีเว้นวรรค
+            displayText.style.setProperty('font-family', `'${chosenFontFamily}', sans-serif`, 'important');
+            
+            // เช็คสถานะการโหลดใน Console
             document.fonts.load(`1em "${chosenFontFamily}"`).then(() => {
                 console.log(`Successfully loaded: ${chosenFontFamily}`);
             }).catch(err => {
@@ -40,26 +43,36 @@ if (chosenFont) {
 
     function updateControls() {
         const font = fontList[fontSelect.value];
+        if (!font) return;
+        
         priceLabel.textContent = font.price;
 
+        // จัดการเรื่องน้ำหนักฟอนต์
+        const weightControl = document.getElementById('weightControl');
         weightButtons.innerHTML = '';
-        if (font.weights) {
-            document.getElementById('weightControl').classList.remove('hidden');
+        if (font.weights && font.weights.length > 0) {
+            weightControl.classList.remove('hidden');
             font.weights.forEach(w => {
                 const btn = createPill(w, () => { currentWeight = w; renderPreview(); });
                 if (w === currentWeight) btn.classList.add('active');
                 weightButtons.appendChild(btn);
             });
+        } else {
+            weightControl.classList.add('hidden');
         }
 
+        // จัดการเรื่องลักษณะฟอนต์ (ปกติ/3D/โปร่ง)
+        const styleControl = document.getElementById('styleControl');
         styleButtons.innerHTML = '';
-        if (font.styles) {
-            document.getElementById('styleControl').classList.remove('hidden');
+        if (font.styles && font.styles.length > 0) {
+            styleControl.classList.remove('hidden');
             font.styles.forEach(s => {
                 const btn = createPill(s, () => { currentStyle = s; renderPreview(); });
                 if (s === currentStyle) btn.classList.add('active');
                 styleButtons.appendChild(btn);
             });
+        } else {
+            styleControl.classList.add('hidden');
         }
         renderPreview();
     }
@@ -77,7 +90,7 @@ if (chosenFont) {
         return btn;
     }
 
-    // --- ฟังก์ชันอื่นๆ ห้ามตัดออก ---
+    // --- ฟังก์ชันเสริม (Cart & UI) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -136,17 +149,24 @@ if (chosenFont) {
         });
     };
 
+    // สร้างตัวเลือกฟอนต์ใน Dropdown
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index; opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
+    fontSelect.onchange = () => { 
+        currentWeight = "ปกติ"; 
+        currentStyle = "ปกติ"; 
+        updateControls(); 
+    };
+
     document.getElementById('fontSize').oninput = (e) => {
         displayText.style.fontSize = e.target.value + 'px';
         document.getElementById('sizeValue').textContent = e.target.value + 'px';
     };
+
     document.getElementById('textInput').oninput = (e) => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความน้าา ♡";
     };
