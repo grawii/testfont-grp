@@ -2,32 +2,28 @@ const fontList = [
     { 
         name: "มนตรา (GRP Mantra)", 
         price: "89.-",
-        family: "mantra-family",
-        mapping: { "บาง": "100", "ปกติ": "400", "หนา": "bold" },
+        mapping: { "บาง": "mantra-thin", "ปกติ": "mantra-normal", "หนา": "mantra-bold" },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "โปร่ง"]
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
         price: "129.-",
-        family: "hs-family",
-        mapping: { "บาง": "100", "ปกติ": "400", "หนา": "bold" },
+        mapping: { "บาง": "hs-thin", "ปกติ": "hs-normal", "หนา": "hs-bold" },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "โปร่ง"] 
     },
     { 
         name: "พัฟฟี่ป็อป (GRP PuffyPop)", 
         price: "69.-",
-        family: "puffy-family",
-        mapping: { "ปกติ": "400" },
+        mapping: { "ปกติ": "puffy-normal" },
         weights: ["ปกติ"],
         styles: ["ปกติ", "โปร่ง"]
     },
     { 
         name: "ป๊อกกี้ (GRP Pocky)", 
         price: "89.-",
-        family: "pocky-normal",
-        mapping: { "บาง": "100", "ปกติ": "400", "หนา": "bold", "3D": "special-3d" },
+        mapping: { "บาง": "pocky-thin", "ปกติ": "pocky-normal", "หนา": "pocky-bold", "3D": "pocky-3d-only" },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
     }
