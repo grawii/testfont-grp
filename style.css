@@ -13,23 +13,23 @@
 /* --- 2. ประกาศ Font-Face แบบแยกตระกูล (Alias) --- */
 
 /* ป๊อกกี้ */
-@font-face { font-family: 'pocky-normal'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'pocky-bold';   src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'pocky-thin';   src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'pocky-3d-only'; src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRP Pocky'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRP Pocky Bold';   src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRP Pocky Thin';   src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRP Pocky 3D'; src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); font-display: block; }
 
 /* มนตรา */
-@font-face { font-family: 'mantra-normal'; src: url('fonts/GRPMantra.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'mantra-bold';   src: url('fonts/GRPMantrabold.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'mantra-thin';   src: url('fonts/GRPMantrathin.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPMantra'; src: url('fonts/GRPMantra.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPMantrabold';   src: url('fonts/GRPMantrabold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPMantrathin';   src: url('fonts/GRPMantrathin.woff2') format('woff2'); font-display: block; }
 
 /* ไฮสคูล */
-@font-face { font-family: 'hs-normal'; src: url('fonts/GRPHighSchool.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'hs-bold';   src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); font-display: block; }
-@font-face { font-family: 'hs-thin';   src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPHighSchool'; src: url('fonts/GRPHighSchool.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPHighSchoolbold';   src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPHighSchoolthin';   src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); font-display: block; }
 
 /* พัฟฟี่ป็อป */
-@font-face { font-family: 'puffy-normal'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'GRPPuffyPop'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); font-display: block; }
 
 /* --- 3. UI Styles (ห้ามตัดออก) --- */
 .font-outline-mode {
