@@ -34,10 +34,10 @@ const fontList = [
         name: "ป๊อกกี้ (GRP Pocky)", 
         price: "89.-",
         mapping: {
-            "บาง": "pocky-thin",
-            "ปกติ": "pocky-reg",
-            "หนา": "pocky-bold",
-            "3D": "pocky-3d"
+            "บาง": "pocky-thin-file",
+            "ปกติ": "pocky-normal",
+            "หนา": "pocky-bold-file",
+            "3D": "pocky-3d-special" // ต้องตรงกับใน CSS เป๊ะๆ
         },
         weights: ["บาง", "ปกติ", "หนา"],
         styles: ["ปกติ", "3D", "โปร่ง"]
