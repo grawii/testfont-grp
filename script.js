@@ -13,28 +13,30 @@ function renderPreview() {
     const font = fontList[fontSelect.value];
     const displayText = document.getElementById('displayText');
     
+    // ล้างสถานะโปร่ง
     displayText.classList.remove('font-outline-mode');
+    
     let chosenFont = "";
 
-    // บังคับเช็ค 3D ก่อนเงื่อนไขอื่น
-    if (currentStyle === "3D") {
+    // ลำดับการประมวลผล: 3D สำคัญที่สุด
+    if (currentStyle === "3D" && font.mapping["3D"]) {
         chosenFont = font.mapping["3D"];
-    } else if (currentStyle === "โปร่ง") {
-        chosenFont = font.mapping[currentWeight];
-        displayText.classList.add('font-outline-mode');
     } else {
+        // ถ้าไม่ใช่ 3D ให้ดึงตามน้ำหนัก (ปกติ/บาง/หนา)
         chosenFont = font.mapping[currentWeight];
+        // ถ้าเป็นสไตล์โปร่ง ให้ใส่ Class เสริม
+        if (currentStyle === "โปร่ง") {
+            displayText.classList.add('font-outline-mode');
+        }
     }
 
-    // ดูใน Console (F12) ว่ามันขึ้นชื่อที่เราตั้งไว้ไหม
-    console.log("Current Font:", chosenFont);
-
+    // บังคับเปลี่ยนสไตล์แบบ Inline (วิธีนี้แรงที่สุด ชนะทุก CSS)
     if (chosenFont) {
-        // ใส่ !important ทับลงไปใน inline-style เลย
         displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
     }
     
-    displayText.style.fontWeight = "normal";
+    // บังคับให้น้ำหนักเป็น Normal เสมอ
+    displayText.style.setProperty('font-weight', 'normal', 'important');
 }
 
     function updateControls() {
