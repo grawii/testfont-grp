@@ -22,11 +22,23 @@
 /* --- พัฟฟี่ป็อป --- */
 @font-face { font-family: 'grp03-reg';  src: url('fonts/GRPPuffyPop.woff2') format('woff2'); }
 
-/* --- ป๊อกกี้ (เช็คตัวพิมพ์ใหญ่-เล็กตามรูป GitHub) --- */
-@font-face { font-family: 'pocky-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
-@font-face { font-family: 'pocky-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'pocky-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-@font-face { font-family: 'pocky-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
+/* --- ป๊อกกี้ (เน้นแก้ชื่อเรียกข้างใน) --- */
+@font-face { 
+    font-family: 'pocky-normal'; /* เปลี่ยนจาก pocky-reg เป็น pocky-normal */
+    src: url('fonts/GRP-Pocky.woff2') format('woff2'); 
+}
+@font-face { 
+    font-family: 'pocky-bold-file'; 
+    src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); 
+}
+@font-face { 
+    font-family: 'pocky-thin-file'; 
+    src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); 
+}
+@font-face { 
+    font-family: 'pocky-3d-special'; /* ตั้งชื่อให้ไม่ซ้ำกับใครเลย */
+    src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); 
+}
 
 /* 3. ระบบ Font Outline (โปร่ง) */
 .font-outline-mode {
