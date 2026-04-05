@@ -1,11 +1,7 @@
-/* 1. การตั้งค่าพื้นฐานสำหรับตัวแสดงผล */
 #displayText {
     font-weight: normal !important;
     font-style: normal !important;
-    transition: font-size 0.2s ease;
-    line-height: 1.2;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    text-decoration: none !important;
 }
 
 /* 2. การดึงไฟล์ฟอนต์ (อ้างอิงชื่อไฟล์จาก GitHub ขององุ่น) */
@@ -22,22 +18,26 @@
 /* --- พัฟฟี่ป็อป --- */
 @font-face { font-family: 'grp03-reg';  src: url('fonts/GRPPuffyPop.woff2') format('woff2'); }
 
-/* --- ป๊อกกี้ (เน้นแก้ชื่อเรียกข้างใน) --- */
+/* ป๊อกกี้ - อ้างอิงชื่อไฟล์จาก GitHub ที่องุ่นส่งมา */
 @font-face { 
-    font-family: 'pocky-normal'; /* เปลี่ยนจาก pocky-reg เป็น pocky-normal */
+    font-family: 'PockyReg'; 
     src: url('fonts/GRP-Pocky.woff2') format('woff2'); 
+    font-weight: normal;
 }
 @font-face { 
-    font-family: 'pocky-bold-file'; 
-    src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); 
-}
-@font-face { 
-    font-family: 'pocky-thin-file'; 
-    src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); 
-}
-@font-face { 
-    font-family: 'pocky-3d-special'; /* ตั้งชื่อให้ไม่ซ้ำกับใครเลย */
+    font-family: 'Pocky3D'; 
     src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); 
+    font-weight: normal;
+}
+@font-face { 
+    font-family: 'PockyBold'; 
+    src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); 
+    font-weight: normal;
+}
+@font-face { 
+    font-family: 'PockyThin'; 
+    src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); 
+    font-weight: normal;
 }
 
 /* 3. ระบบ Font Outline (โปร่ง) */
