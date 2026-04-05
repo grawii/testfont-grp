@@ -4,12 +4,14 @@ const fontList = [
         price: "89.-",
         mapping: { "บาง": "GRPMantrathin", "ปกติ": "GRPMantra", "หนา": "GRPMantrabold" },
         weights: ["บาง", "ปกติ", "หนา"]
+        styles: []
     },
     { 
         name: "ไฮสคูล (GRP HighSchool)", 
         price: "129.-",
         mapping: { "บาง": "GRPHighSchoolthin", "ปกติ": "GRPHighSchool", "หนา": "GRPHighSchoolbold" },
         weights: ["บาง", "ปกติ", "หนา"]
+        styles: []
     },
     { 
         name: "พัฟฟี่ป็อป (GRP PuffyPop)", 
