@@ -9,41 +9,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
 
-function renderPreview() {
-    const font = fontList[fontSelect.value];
-    const displayText = document.getElementById('displayText');
-    
-    // ล้างสถานะโปร่ง
-    displayText.classList.remove('font-outline-mode');
-    
-    let chosenFont = "";
+    // --- ฟังก์ชันหัวใจสำคัญ: renderPreview แบบ Force-Redraw ---
+    function renderPreview() {
+        const font = fontList[fontSelect.value];
+        
+        // 1. ล้างสถานะโปร่ง
+        displayText.classList.remove('font-outline-mode');
+        
+        let chosenFont = "";
 
-    // ลำดับการประมวลผล: 3D สำคัญที่สุด
-    if (currentStyle === "3D" && font.mapping["3D"]) {
-        chosenFont = font.mapping["3D"];
-    } else {
-        // ถ้าไม่ใช่ 3D ให้ดึงตามน้ำหนัก (ปกติ/บาง/หนา)
-        chosenFont = font.mapping[currentWeight];
-        // ถ้าเป็นสไตล์โปร่ง ให้ใส่ Class เสริม
-        if (currentStyle === "โปร่ง") {
-            displayText.classList.add('font-outline-mode');
+        // 2. ลำดับความสำคัญ: 3D ต้องมาก่อนน้ำหนัก
+        if (currentStyle === "3D" && font.mapping["3D"]) {
+            chosenFont = font.mapping["3D"];
+        } else {
+            chosenFont = font.mapping[currentWeight] || font.mapping["ปกติ"];
+            if (currentStyle === "โปร่ง") {
+                displayText.classList.add('font-outline-mode');
+            }
         }
-    }
 
-    // บังคับเปลี่ยนสไตล์แบบ Inline (วิธีนี้แรงที่สุด ชนะทุก CSS)
-    if (chosenFont) {
-        displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
+        // 3. เทคนิค Force-Redraw: ล้างฟอนต์เดิมทิ้งแป๊บนึงเพื่อให้บราวเซอร์ยอมเปลี่ยน 3D
+        displayText.style.fontFamily = "sans-serif"; 
+        
+        setTimeout(() => {
+            if (chosenFont) {
+                // บังคับเปลี่ยน Inline Style พร้อม !important
+                displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
+            }
+            // บังคับน้ำหนักเป็น 400 เพื่อไม่ให้บราวเซอร์เติมหนาเอง
+            displayText.style.setProperty('font-weight', '400', 'important');
+        }, 20); // หน่วงเวลา 20ms เพื่อให้บราวเซอร์รู้สึกถึงการเปลี่ยนแปลง
     }
-    
-    // บังคับให้น้ำหนักเป็น Normal เสมอ
-    displayText.style.setProperty('font-weight', 'normal', 'important');
-}
 
     function updateControls() {
         const font = fontList[fontSelect.value];
         priceLabel.textContent = font.price;
 
-        // จัดการปุ่มน้ำหนัก
         weightButtons.innerHTML = '';
         if (font.weights && font.weights.length > 0) {
             document.getElementById('weightControl').classList.remove('hidden');
@@ -56,7 +57,6 @@ function renderPreview() {
             document.getElementById('weightControl').classList.add('hidden');
         }
 
-        // จัดการปุ่มสไตล์
         styleButtons.innerHTML = '';
         if (font.styles && font.styles.length > 0) {
             document.getElementById('styleControl').classList.remove('hidden');
@@ -84,7 +84,7 @@ function renderPreview() {
         return btn;
     }
 
-    // --- ระบบจัดการตะกร้าสินค้า ---
+    // --- ฟังก์ชันอื่นๆ ทั้งหมด (ห้ามตัดออก) ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -101,7 +101,6 @@ function renderPreview() {
         document.getElementById('cartCount').textContent = cart.length;
         const cartItems = document.getElementById('cartItems');
         let total = 0;
-        
         if (cart.length === 0) {
             cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
         } else {
@@ -121,7 +120,6 @@ function renderPreview() {
         document.getElementById('totalPrice').textContent = total + ".-";
     };
 
-    // --- ระบบใบเสร็จและแจ้งชำระเงิน ---
     window.goToCheckout = function() {
         if (cart.length === 0) return alert("เลือกฟอนต์ก่อนน้าา ♡");
         const receiptList = document.getElementById('receiptList');
@@ -136,37 +134,23 @@ function renderPreview() {
     window.copyAndLine = function() {
         const email = document.getElementById('userEmail').value;
         if (!email) return alert("กรุณากรอก Email ด้วยน้าา ♡");
-        
         let total = 0;
-        let fontNames = cart.map(item => { 
-            total += parseInt(item.price); 
-            return item.name; 
-        }).join(', ');
-
+        let fontNames = cart.map(item => { total += parseInt(item.price); return item.name; }).join(', ');
         const textToCopy = `[ สั่งซื้อฟอนต์ GRP House ]\nรายการ: ${fontNames}\nยอดรวม: ${total}.-\nอีเมล: ${email}`;
-        
         navigator.clipboard.writeText(textToCopy).then(() => {
             alert("คัดลอกรายละเอียดแล้ว! เตรียมแจ้งใน LINE ได้เลย");
-            // เปลี่ยน @yourlineid เป็นไอดีขององุ่นนะครับ
             window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); 
         });
     };
 
-    // การตั้งค่าหน้าเว็บเริ่มต้น
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
-        opt.value = index; 
-        opt.textContent = font.name;
+        opt.value = index; opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => { 
-        currentWeight = "ปกติ"; 
-        currentStyle = "ปกติ"; 
-        updateControls(); 
-    };
-
-    // กำหนดขนาดฟอนต์เริ่มต้นให้ตัวใหญ่สะใจตามต้องการ
+    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
+    
     document.getElementById('fontSize').value = 80;
     displayText.style.fontSize = '80px';
     document.getElementById('sizeValue').textContent = '80px';
@@ -180,7 +164,6 @@ function renderPreview() {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความน้าา ♡";
     };
 
-    // ฟังก์ชันเปิด-ปิด Modal
     window.openCart = () => document.getElementById('cartModal').classList.remove('hidden');
     window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
     window.closeCheckout = () => document.getElementById('checkoutPage').classList.add('hidden');
