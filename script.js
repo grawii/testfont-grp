@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // บังคับเปลี่ยนฟอนต์แบบรุนแรง (Inline CSS)
-        if (chosenFontFamily) {
-            displayText.style.setProperty('font-family', `'${chosenFontFamily}', sans-serif`, 'important');
-            
+        // ในฟังก์ชัน renderPreview
+if (chosenFont) {
+    // ใช้ `${chosenFont}` โดยมี ' ' ครอบข้างนอกอีกที
+    displayText.style.setProperty('font-family', `'${chosenFont}', sans-serif`, 'important');
+}
             // เช็คสถานะการโหลดในเบื้องหลัง
             document.fonts.load(`1em "${chosenFontFamily}"`).then(() => {
                 console.log(`Successfully loaded: ${chosenFontFamily}`);
