@@ -14,10 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!font) return;
 
         displayText.classList.remove('font-outline-mode');
-        
         let chosenFontFamily = "";
 
-        // เลือกชื่อตระกูลฟอนต์ตามสไตล์ที่กด
+        // เลือกชื่อฟอนต์
         if (currentStyle === "3D" && font.mapping["3D"]) {
             chosenFontFamily = font.mapping["3D"];
         } else {
@@ -27,17 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // บังคับเปลี่ยนฟอนต์ (Inline CSS)
+        // เปลี่ยนฟอนต์ (ใส่ ' ครอบกันพลาดเรื่องเว้นวรรค)
         if (chosenFontFamily) {
-            // ใส่ ' ครอบชื่อฟอนต์เผื่อกรณีมีเว้นวรรค
-            displayText.style.setProperty('font-family', `'${chosenFontFamily}', sans-serif`, 'important');
-            
-            // เช็คสถานะการโหลดใน Console
-            document.fonts.load(`1em "${chosenFontFamily}"`).then(() => {
-                console.log(`Successfully loaded: ${chosenFontFamily}`);
-            }).catch(err => {
-                console.error(`Failed to load: ${chosenFontFamily}`, err);
-            });
+            displayText.style.fontFamily = "sans-serif"; // ล้างค่าก่อนแว๊บนึง
+            setTimeout(() => {
+                displayText.style.setProperty('font-family', `'${chosenFontFamily}', sans-serif`, 'important');
+            }, 10);
         }
     }
 
@@ -47,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         priceLabel.textContent = font.price;
 
-        // จัดการเรื่องน้ำหนักฟอนต์
+        // คุมปุ่มน้ำหนัก
         const weightControl = document.getElementById('weightControl');
         weightButtons.innerHTML = '';
-        if (font.weights && font.weights.length > 0) {
+        if (font.weights && font.weights.length > 1) {
             weightControl.classList.remove('hidden');
             font.weights.forEach(w => {
                 const btn = createPill(w, () => { currentWeight = w; renderPreview(); });
@@ -61,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             weightControl.classList.add('hidden');
         }
 
-        // จัดการเรื่องลักษณะฟอนต์ (ปกติ/3D/โปร่ง)
+        // คุมปุ่มลักษณะ
         const styleControl = document.getElementById('styleControl');
         styleButtons.innerHTML = '';
         if (font.styles && font.styles.length > 0) {
@@ -90,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return btn;
     }
 
-    // --- ฟังก์ชันเสริม (Cart & UI) ---
+    // --- ส่วนของตะกร้า ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -149,24 +143,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // สร้างตัวเลือกฟอนต์ใน Dropdown
+    // เตรียม Dropdown
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index; opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => { 
-        currentWeight = "ปกติ"; 
-        currentStyle = "ปกติ"; 
-        updateControls(); 
-    };
-
+    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
     document.getElementById('fontSize').oninput = (e) => {
         displayText.style.fontSize = e.target.value + 'px';
         document.getElementById('sizeValue').textContent = e.target.value + 'px';
     };
-
     document.getElementById('textInput').oninput = (e) => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความน้าา ♡";
     };
