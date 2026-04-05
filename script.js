@@ -9,69 +9,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
 
-    // --- ส่วนที่แก้ไข: ระบบ Render ฟอนต์ให้รองรับ 3D และน้ำหนักต่างๆ ---
+    // --- ฟังก์ชันหลัก: ดึงฟอนต์มาใช้ตรงๆ ตามชื่อไฟล์ ---
     function renderPreview() {
         const font = fontList[fontSelect.value];
         
-        // ล้าง Effect เดิมออกก่อน
+        // 1. รีเซ็ตสถานะ
         displayText.classList.remove('font-outline-mode');
-        displayText.style.fontWeight = "normal";
-        displayText.style.fontStyle = "normal";
+        
+        // 2. ตัวแปรเก็บชื่อฟอนต์ที่จะใช้
+        let chosenFont = "";
 
-        // เงื่อนไขที่ 1: ถ้าเลือกสไตล์ 3D
-        if (currentStyle === "3D") {
-            // ดึงชื่อฟอนต์จาก mapping["3D"] (เช่น pocky-3d)
-            if (font.mapping["3D"]) {
-                displayText.style.fontFamily = font.mapping["3D"];
-            }
+        // 3. เช็คเงื่อนไข (ดึงจาก Mapping ตรงๆ)
+        if (currentStyle === "3D" && font.mapping["3D"]) {
+            chosenFont = font.mapping["3D"];
         } 
-        // เงื่อนไขที่ 2: ถ้าเลือกสไตล์ โปร่ง
         else if (currentStyle === "โปร่ง") {
-            // ใช้ฟอนต์ตามน้ำหนักที่เลือก (บาง/ปกติ/หนา) + ใส่ Effect เส้นขอบ
-            displayText.style.fontFamily = font.mapping[currentWeight];
+            chosenFont = font.mapping[currentWeight];
             displayText.classList.add('font-outline-mode');
         } 
-        // เงื่อนไขที่ 3: สไตล์ปกติ
         else {
-            // ใช้ฟอนต์ตามน้ำหนักที่เลือก (บาง/ปกติ/หนา)
-            displayText.style.fontFamily = font.mapping[currentWeight];
+            chosenFont = font.mapping[currentWeight];
         }
+
+        // 4. สั่งเปลี่ยนฟอนต์ (ใส่ ' ' ครอบชื่อฟอนต์เพื่อความชัวร์)
+        displayText.style.fontFamily = `'${chosenFont}', sans-serif`;
+        
+        // 5. บังคับไม่ให้ Browser เติมความหนาเอง
+        displayText.style.fontWeight = "normal";
     }
 
     function updateControls() {
         const font = fontList[fontSelect.value];
         priceLabel.textContent = font.price;
 
-        // สร้างปุ่มน้ำหนัก (บาง, ปกติ, หนา)
+        // สร้างปุ่มน้ำหนัก
         weightButtons.innerHTML = '';
         if (font.weights && font.weights.length > 0) {
             document.getElementById('weightControl').classList.remove('hidden');
             font.weights.forEach(w => {
-                const btn = createPill(w, () => {
-                    currentWeight = w;
-                    renderPreview();
-                });
+                const btn = createPill(w, () => { currentWeight = w; renderPreview(); });
                 if (w === currentWeight) btn.classList.add('active');
                 weightButtons.appendChild(btn);
             });
-        } else {
-            document.getElementById('weightControl').classList.add('hidden');
         }
 
-        // สร้างปุ่มลักษณะ (ปกติ, 3D, โปร่ง)
+        // สร้างปุ่มสไตล์
         styleButtons.innerHTML = '';
         if (font.styles && font.styles.length > 0) {
             document.getElementById('styleControl').classList.remove('hidden');
             font.styles.forEach(s => {
-                const btn = createPill(s, () => {
-                    currentStyle = s;
-                    renderPreview();
-                });
+                const btn = createPill(s, () => { currentStyle = s; renderPreview(); });
                 if (s === currentStyle) btn.classList.add('active');
                 styleButtons.appendChild(btn);
             });
-        } else {
-            document.getElementById('styleControl').classList.add('hidden');
         }
         renderPreview();
     }
@@ -89,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return btn;
     }
 
-    // --- ระบบตะกร้าและใบเสร็จ (คงเดิม) ---
+    // --- ระบบตะกร้าสินค้า ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -125,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('totalPrice').textContent = total + ".-";
     };
 
+    // --- ระบบใบเสร็จและการคัดลอก ---
     window.goToCheckout = function() {
         if (cart.length === 0) return alert("เลือกฟอนต์ก่อนน้าา ♡");
         const receiptList = document.getElementById('receiptList');
@@ -141,27 +132,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!email) return alert("กรุณากรอก Email ด้วยน้าา ♡");
         let total = 0;
         let fontNames = cart.map(item => { total += parseInt(item.price); return item.name; }).join(', ');
-        const textToCopy = `[ สั่งซื้อฟอนต์ GRP House ]\nรายการ: ${fontNames}\nYod: ${total}.-\nEmail: ${email}`;
+        const textToCopy = `[ สั่งซื้อฟอนต์ GRP House ]\nรายการ: ${fontNames}\nยอดรวม: ${total}.-\nอีเมล: ${email}`;
         navigator.clipboard.writeText(textToCopy).then(() => {
             alert("คัดลอกรายละเอียดแล้ว! เตรียมแจ้งใน LINE ได้เลย");
-            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); // อย่าลืมแก้ ID LINE นะองุ่น
+            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); // ใส่ LINE ID องุ่นตรงนี้
         });
     };
 
-    // การตั้งค่าเริ่มต้น (Init)
+    // ตั้งค่าเริ่มต้น
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
         opt.value = index; opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => {
-        currentWeight = "ปกติ";
-        currentStyle = "ปกติ";
-        updateControls();
-    };
-
-    // ปรับขนาดเริ่มต้นให้ตัวใหญ่ตามที่องุ่นต้องการ
+    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
+    
+    // ตั้งค่าขนาดเริ่มต้น 80px ตามต้องการ
     document.getElementById('fontSize').value = 80;
     displayText.style.fontSize = '80px';
     document.getElementById('sizeValue').textContent = '80px';
