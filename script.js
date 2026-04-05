@@ -9,17 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayText = document.getElementById('displayText');
     const priceLabel = document.getElementById('priceLabel');
 
-    // --- ฟังก์ชันหลัก: ดึงฟอนต์มาใช้ตรงๆ ตามชื่อไฟล์ ---
+    // --- ฟังก์ชันหลัก: ดึงฟอนต์มาใช้ตรงๆ ตามชื่อเรียกใน CSS ---
     function renderPreview() {
         const font = fontList[fontSelect.value];
         
-        // 1. รีเซ็ตสถานะ
+        // 1. ล้างสถานะพิเศษ
         displayText.classList.remove('font-outline-mode');
         
-        // 2. ตัวแปรเก็บชื่อฟอนต์ที่จะใช้
+        // 2. ตัวแปรเก็บชื่อ Font Family ที่เลือก
         let chosenFont = "";
 
-        // 3. เช็คเงื่อนไข (ดึงจาก Mapping ตรงๆ)
+        // 3. ตรวจสอบเงื่อนไขการดึงชื่อฟอนต์จาก Mapping (Direct Mapping)
         if (currentStyle === "3D" && font.mapping["3D"]) {
             chosenFont = font.mapping["3D"];
         } 
@@ -28,13 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.classList.add('font-outline-mode');
         } 
         else {
+            // กรณีปกติ หรือสไตล์อื่นๆ ที่ต้องอิงตามน้ำหนัก
             chosenFont = font.mapping[currentWeight];
         }
 
-        // 4. สั่งเปลี่ยนฟอนต์ (ใส่ ' ' ครอบชื่อฟอนต์เพื่อความชัวร์)
-        displayText.style.fontFamily = `'${chosenFont}', sans-serif`;
+        // 4. สั่งเปลี่ยนฟอนต์ (ใส่ ' ' ครอบชื่อเพื่อให้ Browser อ่านค่าได้แม่นยำ)
+        if (chosenFont) {
+            displayText.style.fontFamily = `'${chosenFont}', sans-serif`;
+        }
         
-        // 5. บังคับไม่ให้ Browser เติมความหนาเอง
+        // 5. บังคับให้น้ำหนักเป็น Normal เพื่อใช้หน้าตาจากไฟล์ฟอนต์โดยตรง
         displayText.style.fontWeight = "normal";
     }
 
@@ -42,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const font = fontList[fontSelect.value];
         priceLabel.textContent = font.price;
 
-        // สร้างปุ่มน้ำหนัก
+        // จัดการปุ่มน้ำหนัก
         weightButtons.innerHTML = '';
         if (font.weights && font.weights.length > 0) {
             document.getElementById('weightControl').classList.remove('hidden');
@@ -51,9 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (w === currentWeight) btn.classList.add('active');
                 weightButtons.appendChild(btn);
             });
+        } else {
+            document.getElementById('weightControl').classList.add('hidden');
         }
 
-        // สร้างปุ่มสไตล์
+        // จัดการปุ่มสไตล์
         styleButtons.innerHTML = '';
         if (font.styles && font.styles.length > 0) {
             document.getElementById('styleControl').classList.remove('hidden');
@@ -62,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (s === currentStyle) btn.classList.add('active');
                 styleButtons.appendChild(btn);
             });
+        } else {
+            document.getElementById('styleControl').classList.add('hidden');
         }
         renderPreview();
     }
@@ -79,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return btn;
     }
 
-    // --- ระบบตะกร้าสินค้า ---
+    // --- ระบบจัดการตะกร้าสินค้า ---
     window.addToCart = function() {
         const font = fontList[fontSelect.value];
         if (cart.some(item => item.name === font.name)) return alert("มีในตะกร้าแล้วจ้า ♡");
@@ -96,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('cartCount').textContent = cart.length;
         const cartItems = document.getElementById('cartItems');
         let total = 0;
+        
         if (cart.length === 0) {
             cartItems.innerHTML = '<p class="text-center text-xs text-pink-300 py-4 italic">ตะกร้าว่างเปล่าจ้าา ♡</p>';
         } else {
@@ -115,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('totalPrice').textContent = total + ".-";
     };
 
-    // --- ระบบใบเสร็จและการคัดลอก ---
+    // --- ระบบใบเสร็จและแจ้งชำระเงิน ---
     window.goToCheckout = function() {
         if (cart.length === 0) return alert("เลือกฟอนต์ก่อนน้าา ♡");
         const receiptList = document.getElementById('receiptList');
@@ -130,25 +138,37 @@ document.addEventListener('DOMContentLoaded', () => {
     window.copyAndLine = function() {
         const email = document.getElementById('userEmail').value;
         if (!email) return alert("กรุณากรอก Email ด้วยน้าา ♡");
+        
         let total = 0;
-        let fontNames = cart.map(item => { total += parseInt(item.price); return item.name; }).join(', ');
+        let fontNames = cart.map(item => { 
+            total += parseInt(item.price); 
+            return item.name; 
+        }).join(', ');
+
         const textToCopy = `[ สั่งซื้อฟอนต์ GRP House ]\nรายการ: ${fontNames}\nยอดรวม: ${total}.-\nอีเมล: ${email}`;
+        
         navigator.clipboard.writeText(textToCopy).then(() => {
             alert("คัดลอกรายละเอียดแล้ว! เตรียมแจ้งใน LINE ได้เลย");
-            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); // ใส่ LINE ID องุ่นตรงนี้
+            // เปลี่ยน @yourlineid เป็นไอดีขององุ่นนะครับ
+            window.open('https://line.me/R/ti/p/@yourlineid', '_blank'); 
         });
     };
 
-    // ตั้งค่าเริ่มต้น
+    // การตั้งค่าหน้าเว็บเริ่มต้น
     fontList.forEach((font, index) => {
         const opt = document.createElement('option');
-        opt.value = index; opt.textContent = font.name;
+        opt.value = index; 
+        opt.textContent = font.name;
         fontSelect.appendChild(opt);
     });
 
-    fontSelect.onchange = () => { currentWeight = "ปกติ"; currentStyle = "ปกติ"; updateControls(); };
-    
-    // ตั้งค่าขนาดเริ่มต้น 80px ตามต้องการ
+    fontSelect.onchange = () => { 
+        currentWeight = "ปกติ"; 
+        currentStyle = "ปกติ"; 
+        updateControls(); 
+    };
+
+    // กำหนดขนาดฟอนต์เริ่มต้นให้ตัวใหญ่สะใจตามต้องการ
     document.getElementById('fontSize').value = 80;
     displayText.style.fontSize = '80px';
     document.getElementById('sizeValue').textContent = '80px';
@@ -162,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayText.textContent = e.target.value || "ลองพิมพ์ข้อความน้าา ♡";
     };
 
+    // ฟังก์ชันเปิด-ปิด Modal
     window.openCart = () => document.getElementById('cartModal').classList.remove('hidden');
     window.closeCart = () => document.getElementById('cartModal').classList.add('hidden');
     window.closeCheckout = () => document.getElementById('checkoutPage').classList.add('hidden');
