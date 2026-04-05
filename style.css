@@ -1,40 +1,37 @@
-/* 1. ล้างสถานะพื้นฐานของ Preview */
+/* 1. ล้างสถานะพื้นฐาน */
 #displayText {
-    font-weight: 400 !important;
+    font-weight: normal !important;
     font-style: normal !important;
-    transition: font-size 0.2s ease;
-    line-height: 1.2;
-    display: block;
-    width: 100%;
+    font-family: sans-serif; /* ฟอนต์สำรองกรณีโหลดไม่ขึ้น */
 }
 
-/* 2. ประกาศ Font-Face (สะกดชื่อไฟล์ตาม GitHub องุ่นเป๊ะๆ) */
+/* 2. ประกาศ Font-Face (อิงชื่อตามรูป GitHub ที่องุ่นส่งมา) */
 /* --- ป๊อกกี้ --- */
-@font-face { font-family: 'f-pocky-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
-@font-face { font-family: 'f-pocky-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'f-pocky-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-@font-face { font-family: 'f-pocky-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
+@font-face { font-family: 'f-pocky-reg';  src: url('fonts/GRP-Pocky.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-pocky-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-pocky-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-pocky-3d';   src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); font-display: block; }
 
 /* --- มนตรา --- */
-@font-face { font-family: 'f-mantra-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); }
-@font-face { font-family: 'f-mantra-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
-@font-face { font-family: 'f-mantra-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
+@font-face { font-family: 'f-mantra-reg';  src: url('fonts/GRPMantra.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-mantra-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-mantra-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); font-display: block; }
 
 /* --- ไฮสคูล --- */
-@font-face { font-family: 'f-hs-reg';  src: url('fonts/GRPHighSchool.woff2') format('woff2'); }
-@font-face { font-family: 'f-hs-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
-@font-face { font-family: 'f-hs-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
+@font-face { font-family: 'f-hs-reg';  src: url('fonts/GRPHighSchool.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-hs-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'f-hs-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); font-display: block; }
 
 /* --- พัฟฟี่ป็อป --- */
-@font-face { font-family: 'f-puffy-reg'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); }
+@font-face { font-family: 'f-puffy-reg'; src: url('fonts/GRPPuffyPop.woff2') format('woff2'); font-display: block; }
 
-/* 3. เอฟเฟกต์ฟอนต์โปร่ง */
+/* 3. เอฟเฟกต์โปร่ง */
 .font-outline-mode {
     color: transparent !important;
     -webkit-text-stroke: 1.2px #8c5a65 !important;
 }
 
-/* 4. UI Styles ส่วนที่เหลือทั้งหมด */
+/* 4. UI Styles อื่นๆ (ห้ามตัดออก) */
 :root { --primary-bg: #fffcfd; --text-dark: #8c5a65; --pink-accent: #ffccd5; }
 body { background-color: var(--primary-bg); color: var(--text-dark); }
 .soft-window { background: white; border: 2px solid #ffdce3; border-radius: 1.5rem; overflow: hidden; }
@@ -47,5 +44,3 @@ body { background-color: var(--primary-bg); color: var(--text-dark); }
 .pill-btn.active { background: var(--pink-accent); color: white; }
 .contact-btn { background: var(--pink-accent); color: white; border-radius: 999px; padding: 1rem; font-weight: 900; width: 100%; transition: 0.3s; border: none; cursor: pointer; }
 .remove-btn { width: 18px; height: 18px; background: #ffe5ec; color: #ff8fa3; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; cursor: pointer; }
-.animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
