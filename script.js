@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayText.style.fontFamily = "sans-serif"; 
             setTimeout(() => {
                 // ใส่แค่ชื่อฟอนต์เพียวๆ ไม่ต้องมี sans-serif ต่อท้ายในฟังก์ชันนี้
-                displayText.style.setProperty('font-family', chosen, 'important');
+                displayText.setAttribute('style', 'font-family: ' + chosen + ' !important; font-size: ' + document.getElementById('fontSize').value + 'px;');
             }, 10);
         }
     }
