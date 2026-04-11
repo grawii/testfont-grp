@@ -11,7 +11,7 @@
 @font-face { font-family: 'GRP Pocky'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
 @font-face { font-family: 'GRP Pocky Bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
 @font-face { font-family: 'GRP Pocky Thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-@font-face { font-family: 'GRP Pocky 3D'; src: url('fonts/GRP-Pocky-3D.woff2') format('woff2'); }
+@font-face { font-family: 'GRP Pocky 3D'; src: url('fonts/GRPPocky3D.woff2') format('woff2'); }
 
 /* มนตรา & ไฮสคูล & พัฟฟี่ */
 @font-face { font-family: 'GRPMantra'; src: url('fonts/GRPMantra.woff2') format('woff2'); }
