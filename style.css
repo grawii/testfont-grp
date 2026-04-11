@@ -7,20 +7,25 @@
     min-height: 100px;
 }
 
+/* style.css */
 /* ป๊อกกี้ */
-@font-face { font-family: 'GRP Pocky'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
-@font-face { font-family: 'GRP Pocky Bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
-@font-face { font-family: 'GRP Pocky Thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
-@font-face { font-family: 'GRP Pocky 3D'; src: url('fonts/grppocky3d.woff2') format('woff2'); }
+@font-face { font-family: 'p-reg'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
+@font-face { font-family: 'p-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'p-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
+@font-face { font-family: 'p-3d'; src: url('fonts/grppocky3d.woff2') format('woff2'); }
 
-/* มนตรา & ไฮสคูล & พัฟฟี่ */
-@font-face { font-family: 'GRPMantra'; src: url('fonts/GRPMantra.woff2') format('woff2'); }
-@font-face { font-family: 'GRPMantrabold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
-@font-face { font-family: 'GRPMantrathin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
-@font-face { font-family: 'GRPHighSchool'; src: url('fonts/grphighschool.woff2') format('woff2'); }
-@font-face { font-family: 'GRPHighSchoolbold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
-@font-face { font-family: 'GRPHighSchoolthin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
-@font-face { font-family: 'GRPPuffyPop'; src: url('fonts/grppuffypop.woff2') format('woff2'); }
+/* มนตรา */
+@font-face { font-family: 'm-reg'; src: url('fonts/GRPMantra.woff2') format('woff2'); }
+@font-face { font-family: 'm-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
+@font-face { font-family: 'm-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
+
+/* ไฮสคูล */
+@font-face { font-family: 'h-reg'; src: url('fonts/grphighschool.woff2') format('woff2'); }
+@font-face { font-family: 'h-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
+@font-face { font-family: 'h-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
+
+/* พัฟฟี่ */
+@font-face { font-family: 'puffy'; src: url('fonts/grppuffypop.woff2') format('woff2'); }
 
 /* UI อื่นๆ คงเดิม */
 .font-outline-mode { color: transparent !important; -webkit-text-stroke: 1.2px #8c5a65 !important; }
