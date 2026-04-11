@@ -1,43 +1,31 @@
-#displayText {
-    font-weight: 400;
-    font-family: sans-serif;
-    display: block;
-    width: 100%;
-    line-height: 1.4;
-    min-height: 100px;
-}
-
 /* style.css */
-/* ป๊อกกี้ */
+/* --- Font Declaration --- */
 @font-face { font-family: 'p-reg'; src: url('fonts/GRP-Pocky.woff2') format('woff2'); }
 @font-face { font-family: 'p-bold'; src: url('fonts/GRP-Pocky-Bold.woff2') format('woff2'); }
 @font-face { font-family: 'p-thin'; src: url('fonts/GRP-Pocky-Thin.woff2') format('woff2'); }
 @font-face { font-family: 'p-3d'; src: url('fonts/grppocky3d.woff2') format('woff2'); }
 
-/* มนตรา */
 @font-face { font-family: 'm-reg'; src: url('fonts/GRPMantra.woff2') format('woff2'); }
 @font-face { font-family: 'm-bold'; src: url('fonts/GRPMantrabold.woff2') format('woff2'); }
 @font-face { font-family: 'm-thin'; src: url('fonts/GRPMantrathin.woff2') format('woff2'); }
 
-/* ไฮสคูล */
 @font-face { font-family: 'h-reg'; src: url('fonts/grphighschool.woff2') format('woff2'); }
 @font-face { font-family: 'h-bold'; src: url('fonts/GRPHighSchoolbold.woff2') format('woff2'); }
 @font-face { font-family: 'h-thin'; src: url('fonts/GRPHighSchoolthin.woff2') format('woff2'); }
 
-/* พัฟฟี่ */
 @font-face { font-family: 'puffy'; src: url('fonts/grppuffypop.woff2') format('woff2'); }
 
-/* UI อื่นๆ คงเดิม */
-.font-outline-mode { color: transparent !important; -webkit-text-stroke: 1.2px #8c5a65 !important; }
-:root { --primary-bg: #fffcfd; --text-dark: #8c5a65; --pink-accent: #ffccd5; }
-body { background-color: var(--primary-bg); color: var(--text-dark); margin: 0; padding: 0; }
-.soft-window { background: white; border: 2px solid #ffdce3; border-radius: 1.5rem; overflow: hidden; margin-bottom: 20px; }
-.window-header { background: #fff0f3; padding: 0.75rem 1.5rem; border-bottom: 2px solid #ffdce3; display: flex; align-items: center; justify-content: space-between; }
-.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
-.dot-1 { background: #ffb5c6; }
-.dot-2 { background: #ffcdb2; }
-.dot-3 { background: #ffffff; border: 1px solid #ffdce3; }
-.pill-btn { background: #fff0f3; padding: 6px 18px; border-radius: 999px; font-size: 12px; cursor: pointer; border: none; }
-.pill-btn.active { background: var(--pink-accent); color: white; }
-.contact-btn { background: var(--pink-accent); color: white; border-radius: 999px; padding: 1rem; font-weight: 900; width: 100%; border: none; cursor: pointer; }
-.remove-btn { width: 18px; height: 18px; background: #ffe5ec; color: #ff8fa3; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
+/* --- Preview Styles --- */
+#displayText {
+    font-weight: 400;
+    font-family: sans-serif;
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    line-height: 1.4;
+}
+.font-outline-mode { 
+    color: transparent !important; 
+    -webkit-text-stroke: 1.2px #8c5a65 !important; 
+}
+/* UI อื่นๆ ขององุ่นก๊อปมาวางต่อท้ายได้เลยครับ */
