@@ -14,17 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!font) return;
         displayText.classList.remove('font-outline-mode');
         let chosen = "";
-        
         if (currentStyle === "3D" && font.mapping["3D"]) {
             chosen = font.mapping["3D"];
         } else {
             chosen = font.mapping[currentWeight] || font.mapping["ปกติ"];
             if (currentStyle === "โปร่ง") displayText.classList.add('font-outline-mode');
         }
-
         if (chosen) {
-            // จุดตายที่กูส่องเจอ: ต้องใส่ Single Quote ครอบชื่อฟอนต์
-            displayText.style.setProperty('font-family', `'${chosen}'`, 'important');
+            // แก้ไขจุดตาย: ต้องมี ' ' ครอบชื่อฟอนต์ มึงดูดีๆ นะ
+            displayText.style.setProperty('font-family', "'" + chosen + "'", 'important');
         }
     }
 
